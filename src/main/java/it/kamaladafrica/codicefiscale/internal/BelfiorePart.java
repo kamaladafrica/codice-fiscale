@@ -89,30 +89,4 @@ public class BelfiorePart extends AbstractPart {
 		matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
 	}
 
-	public static void main(String[] args) {
-		CityProvider provider = CityProvider.ofDefault();
-
-		BelfiorePart part = BelfiorePart.from("H501", provider);
-		System.out.println(part);
-
-		City morlupo = provider.findByName("roma");
-		part = BelfiorePart.of(morlupo);
-		System.out.println(part);
-
-		System.out.println(part.toOmocodeLevel(2).getValue());
-
-		// provider.findAll().forEach(System.out::println);
-
-//		part = DatePart.of("77B59");
-//
-//		System.out.println(part.getInput());
-//		System.out.println(part.getValue());
-//
-//		part = DatePart.of("77B5V");
-//
-//		System.out.println(part.getInput());
-//		System.out.println(part.getValue());
-
-	}
-
 }

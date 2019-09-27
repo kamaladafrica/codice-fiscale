@@ -118,21 +118,4 @@ public class DatePart extends AbstractPart {
 		boolean female;
 	}
 
-	public static void main(String[] args) {
-		DatePart part = DatePart.from("77B19");
-
-		System.out.println(part);
-
-//		part = DatePart.of("77B59");
-//
-//		System.out.println(part.getInput());
-//		System.out.println(part.getValue());
-//
-//		part = DatePart.of("77B5V");
-//
-//		System.out.println(part.getInput());
-//		System.out.println(part.getValue());
-
-	}
-
 }

@@ -69,6 +69,11 @@ public class ControlPart extends AbstractPart {
 		return getValue().charAt(0) == controlChar;
 	}
 
+	public boolean isEqual(String controlChar) {
+		matchesPattern(controlChar, VALIDATION_RESULT_PATTERN, "unexpected input: %s", controlChar);
+		return getValue().equals(controlChar);
+	}
+
 	@Override
 	protected void validateValue(String value) {
 		matchesPattern(value, VALIDATION_RESULT_PATTERN, "unexpected result: %s", value);
