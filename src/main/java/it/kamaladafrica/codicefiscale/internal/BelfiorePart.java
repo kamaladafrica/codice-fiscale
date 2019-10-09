@@ -1,6 +1,6 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static it.kamaladafrica.codicefiscale.utils.OmocodeUtils.level;
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
 import org.apache.commons.lang3.Validate;
@@ -32,6 +32,8 @@ public class BelfiorePart extends AbstractPart {
 
 	private BelfiorePart(City city, int level) {
 		super(level);
+		inclusiveBetween(0, OMOCODE_INDEXES.length(), level, "invalid omocode level for Belfiore part: 0 <= %s <= %s",
+				level, OMOCODE_INDEXES.length());
 		this.city = city;
 	}
 
@@ -47,7 +49,7 @@ public class BelfiorePart extends AbstractPart {
 	}
 
 	private static int getOmocodeLevel(String value) {
-		return level(value, OMOCODE_INDEXES.toArray());
+		return OmocodeUtils.level(value, OMOCODE_INDEXES.toArray());
 	}
 
 	public static BelfiorePart of(City city) {
@@ -74,8 +76,7 @@ public class BelfiorePart extends AbstractPart {
 	protected String applyOmocodeLevel(String value) {
 		final int level = getOmocodeLevel();
 		if (level > 0) {
-			return OmocodeUtils.apply(value,
-					OMOCODE_INDEXES.subArray(0, Math.min(level, OMOCODE_INDEXES.length())).toArray());
+			return OmocodeUtils.apply(value, OMOCODE_INDEXES.subArray(0, level).toArray());
 		}
 		return value;
 	}

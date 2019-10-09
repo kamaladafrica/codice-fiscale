@@ -32,6 +32,8 @@ public final class CodiceFiscale {
 	private final static int DATE_PART_INDEX = 6;
 	private final static int BELFIORE_PART_INDEX = 11;
 
+	private static final int OMOCODE_LEVEL_DATE_OFFSET = 3;
+
 	private final Person person;
 	private final NamePart lastname;
 	private final NamePart firstname;
@@ -82,13 +84,21 @@ public final class CodiceFiscale {
 	}
 
 	public CodiceFiscale toOmocodeLevel(int level) {
+		Validate.inclusiveBetween(0, 7, level, "invalid omocode level: 0 <= %s <= 7", level);
+
+		DatePart datePart = getDate().toOmocodeLevel(Math.max(0, level - OMOCODE_LEVEL_DATE_OFFSET));
+		BelfiorePart belfiorePart = getBelfiore().toOmocodeLevel(Math.min(OMOCODE_LEVEL_DATE_OFFSET, level));
+
 		return getOmocodeLevel() == level ? this
-				: new CodiceFiscale(getPerson(), getLastname(), getFirstname(), getDate().toOmocodeLevel(level),
-						getBelfiore().toOmocodeLevel(level), level);
+				: new CodiceFiscale(getPerson(), getLastname(), getFirstname(), datePart, belfiorePart, level);
 	}
 
 	public boolean isOmocode() {
 		return getOmocodeLevel() > 0;
+	}
+
+	public boolean isCompatible(Person person) {
+		return isEqual(CodiceFiscale.of(person));
 	}
 
 	private String computeValue() {
@@ -143,9 +153,7 @@ public final class CodiceFiscale {
 	}
 
 	public static boolean isCompatible(String code, Person person) {
-		CodiceFiscale inverse = CodiceFiscale.of(code).normalized();
-		CodiceFiscale cf = CodiceFiscale.of(person);
-		return Objects.equals(cf.getValue(), inverse.getValue());
+		return CodiceFiscale.of(code).isCompatible(person);
 	}
 
 	public static boolean isFormatValid(String value) {

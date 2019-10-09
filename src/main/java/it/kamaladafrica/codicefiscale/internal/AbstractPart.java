@@ -1,7 +1,5 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
@@ -22,7 +20,6 @@ public abstract class AbstractPart implements Part {
 	}
 
 	public AbstractPart(int omocodeLevel) {
-		inclusiveBetween(0, 7, omocodeLevel, "invalid omocode level: 0 <= %s <= 7", omocodeLevel);
 		this.omocodeLevel = omocodeLevel;
 	}
 

@@ -89,6 +89,13 @@ public class CodiceFiscaleTest {
 
 	@Test
 	public void testIsCompatible() {
+		assertTrue(CodiceFiscale.of(CODICE_FISCALE).isCompatible(PERSON));
+		assertTrue(CodiceFiscale.of(CODICE_FISCALE_2).isCompatible(PERSON));
+		assertFalse(CodiceFiscale.of("RSSMRA75C21H501D").isCompatible(PERSON));
+	}
+
+	@Test
+	public void testIsCompatibleStatic() {
 		assertTrue(CodiceFiscale.isCompatible(CODICE_FISCALE, PERSON));
 		assertTrue(CodiceFiscale.isCompatible(CODICE_FISCALE_2, PERSON));
 		assertFalse(CodiceFiscale.isCompatible("RSSMRA75C21H501D", PERSON));
