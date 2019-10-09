@@ -26,12 +26,11 @@ System.out.println(datePart.isFemale()); // false
 
 ## Features
 
-* Calculation (codice fiscale from person data)
-* Reverse calculation (person data from codice fiscale)
-* Validation
-* Comparison and compatibility
-* Support for omocode
-* Parts
+* [Calculation](#calculation) (codice fiscale from person data)
+* [Reverse calculation](#reverse-calculation) (person data from codice fiscale)
+* [Validation](#validation)
+* [Comparison and compatibility](#comparison-and-compatibility)
+* [Support for omocode levels](#support-for-omocode-levels)
 
 
 ## Usage
@@ -66,6 +65,7 @@ System.out.println(cf.getValue()); // RSSMRA75C22H501I
 #### Cities
 
 City objects can be built by hands:
+
 ```java
 City city = City.builder().name("ROMA").prov("RM").belfiore("H501").build();
 ```
@@ -165,10 +165,14 @@ CodiceFiscale cf = CodiceFiscale.isCompatible("RSSMRA75C22H5LML", person); // re
 
 ### Support for omocode levels
 
-A *codice fiscale* can be omocodic (when two people have same codice fiscale).
+A *codice fiscale* can be omocodic if two or more people share the same codice fiscale ([learn more on Wikipedia](https://it.wikipedia.org/wiki/Omocodia)).
+
 Level indicates how many letters are changed. A letter is changed when another person has the same *codice fiscale*, so a omocode level 2 means that at least 3 people have the same *codice fiscale*.
+
 Level is 0 <= level <= 7.
+
 You can change omocode level using `toOmocodeLevel`. The method `normalized` is the same as `toOmocodeLevel(0)`
+
 ```java
 Person person =	Person.builder()
 	.firstname("Mario")
@@ -197,7 +201,7 @@ System.out.println(cf.getOmocodeLevel()); // 0
 
 All you need to do is to add the [Bintray jcenter](https://bintray.com/bintray/jcenter) repository in the maven pom.xml
 
-
+```xml
 		<repositories>
 			<repository>
 				<snapshots>
@@ -208,15 +212,17 @@ All you need to do is to add the [Bintray jcenter](https://bintray.com/bintray/j
 				<url>http://jcenter.bintray.com</url>
 			</repository>
 		</repositories>
+```
 
 and declare the dependency
 
+```xml
 		<dependency>
 		  <groupId>it.kamaladafrica</groupId>
 		  <artifactId>codice-fiscale</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.1.0</version>
 		</dependency>
-
+```
 
 ## Contributing
 
