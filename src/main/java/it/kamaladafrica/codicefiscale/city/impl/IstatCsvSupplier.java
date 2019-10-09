@@ -19,7 +19,7 @@ import lombok.Getter;
 @Getter(PRIVATE)
 public class IstatCsvSupplier extends CsvSupplier {
 
-	public IstatCsvSupplier(URL resource) {
+	private IstatCsvSupplier(URL resource) {
 		super(resource, StandardCharsets.UTF_8, buildFormat(), mapper());
 	}
 
