@@ -9,7 +9,6 @@ import org.apache.commons.lang3.Validate;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
@@ -24,12 +23,14 @@ public class NamePart extends AbstractPart {
 
 	String name;
 
-	public static NamePart from(@NonNull String value) {
+	public static NamePart from(String value) {
+		Validate.notEmpty(value, "invalid name: %s", value);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
 		return of(value);
 	}
 
-	public static NamePart of(@NonNull String value) {
+	public static NamePart of(String value) {
+		Validate.notEmpty(value, "invalid name: %s", value);
 		Validate.validIndex(normalizeString(value), 1, "invalid name: %s", value);
 		return new NamePart(value);
 	}

@@ -5,6 +5,8 @@ import static org.apache.commons.lang3.Validate.matchesPattern;
 
 import java.time.LocalDate;
 
+import org.apache.commons.lang3.Validate;
+
 import com.google.common.primitives.ImmutableIntArray;
 
 import it.kamaladafrica.codicefiscale.utils.OmocodeUtils;
@@ -40,7 +42,8 @@ public class DatePart extends AbstractPart {
 		this.female = female;
 	}
 
-	public static DatePart from(@NonNull String value) {
+	public static DatePart from(String value) {
+		Validate.notEmpty(value, "invalid value: %s", value);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
 		DatePartInput input = toInput(value);
 		return new DatePart(input.getDate(), input.isFemale(), getOmocodeLevel(value));
@@ -50,7 +53,8 @@ public class DatePart extends AbstractPart {
 		return OmocodeUtils.level(value, OMOCODE_INDEXES.toArray());
 	}
 
-	public static DatePart of(@NonNull LocalDate date, boolean isFemale) {
+	public static DatePart of(LocalDate date, boolean isFemale) {
+		Validate.notNull(date);
 		return new DatePart(date, isFemale);
 	}
 

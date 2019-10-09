@@ -13,7 +13,6 @@ import it.kamaladafrica.codicefiscale.city.CityProvider;
 import it.kamaladafrica.codicefiscale.utils.OmocodeUtils;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.Value;
@@ -41,7 +40,9 @@ public class BelfiorePart extends AbstractPart {
 		return from(value, CityProvider.ofDefault());
 	}
 
-	public static BelfiorePart from(@NonNull String value, @NonNull CityByBelfiore provider) {
+	public static BelfiorePart from(String value, CityByBelfiore provider) {
+		Validate.notEmpty(value, "invalid value: %s", value);
+		Validate.notNull(provider);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
 		City input = toInput(value, provider);
 		Validate.notNull(input, "belfiore not found");
