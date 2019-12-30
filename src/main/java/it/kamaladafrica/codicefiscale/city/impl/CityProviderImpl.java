@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.text.similarity.JaroWinklerDistance;
@@ -26,6 +28,7 @@ public class CityProviderImpl implements CityProvider {
 	public static final double EXACT_MATCH_SCORE = 1.0;
 
 	static final String ISTAT_RESOURCE_PATH = "/istat.csv";
+	static final String ESTERI_RESOURCE_PATH = "/esteri.csv";
 
 	private final ImmutableMap<String, City> cityByName;
 	private final ImmutableMap<String, City> cityByBelfiore;
@@ -59,23 +62,19 @@ public class CityProviderImpl implements CityProvider {
 
 			result = cityByName.get(term);
 			if (minimumMatchScore != EXACT_MATCH_SCORE && result == null) {
-				final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(
-						new JaroWinklerDistance(), term);
-				result = cityByName.entrySet().stream()
-						.map(e -> Pair.of(e.getValue(), score.apply(e.getKey())))
-						.filter(e -> e.getValue() >= minimumMatchScore)
-						.max(Comparator.comparing(Entry::getValue))
-						.map(Entry::getKey)
-						.orElse(null);				
+				final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(new JaroWinklerDistance(), term);
+				result = cityByName.entrySet().stream().map(e -> Pair.of(e.getValue(), score.apply(e.getKey())))
+						.filter(e -> e.getValue() >= minimumMatchScore).max(Comparator.comparing(Entry::getValue))
+						.map(Entry::getKey).orElse(null);
 			}
 		}
-		
+
 		if (result == null) {
 			throw new IllegalArgumentException("not found: " + term);
 		}
 		return result;
 	}
-	
+
 	@Override
 	public City findByBelfiore(String belfiore) {
 		final String term = normalize(belfiore);
@@ -107,7 +106,11 @@ public class CityProviderImpl implements CityProvider {
 	}
 
 	private static Supplier<Set<City>> defaultSupplier() {
-		return IstatCsvSupplier.of(CityProviderImpl.class.getResource(ISTAT_RESOURCE_PATH));
+		return () -> Stream
+				.concat(IstatCsvSupplier.of(CityProviderImpl.class.getResource(ISTAT_RESOURCE_PATH)).get(),
+						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)).get())
+				.collect(Collectors.toSet());
+
 	}
 
 }

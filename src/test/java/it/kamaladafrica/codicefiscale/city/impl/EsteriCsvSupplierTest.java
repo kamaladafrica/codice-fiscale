@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import it.kamaladafrica.codicefiscale.City;
 
-public class IstatCsvSupplierTest {
+public class EsteriCsvSupplierTest {
 
 	@Test
 	public void testOf() {
-		Set<City> cities = IstatCsvSupplier.of(getClass().getResource(CityProviderImpl.ISTAT_RESOURCE_PATH)).get()
+		Set<City> cities = EsteriCsvSupplier.of(getClass().getResource(CityProviderImpl.ESTERI_RESOURCE_PATH)).get()
 				.collect(Collectors.toSet());
 		Assert.assertFalse(cities.isEmpty());
 	}

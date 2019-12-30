@@ -1,14 +1,13 @@
 package it.kamaladafrica.codicefiscale.city.impl;
 
-import static java.util.stream.Collectors.toSet;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.apache.commons.csv.CSVFormat;
@@ -22,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(PRIVATE)
 @RequiredArgsConstructor
-public class CsvSupplier implements Supplier<Set<City>> {
+public class CsvSupplier implements Supplier<Stream<City>> {
 
 	@NonNull
 	private final URL csvUrl;
@@ -34,13 +33,20 @@ public class CsvSupplier implements Supplier<Set<City>> {
 	private final Function<CSVRecord, City> mapper;
 
 	@Override
-	public Set<City> get() {
+	public Stream<City> get() {
 		try {
-			CSVParser parser = CSVParser.parse(csvUrl, charset, format);
-			return StreamSupport.stream(parser.spliterator(), false).map(mapper).collect(toSet());
+			return streamRecords(parse()).map(mapper);
 		} catch (IOException e) {
 			throw new IllegalArgumentException(e);
 		}
+	}
+
+	protected Stream<CSVRecord> streamRecords(CSVParser parser) {
+		return StreamSupport.stream(parser.spliterator(), false);
+	}
+
+	protected CSVParser parse() throws IOException {
+		return CSVParser.parse(csvUrl, charset, format);
 	}
 
 }

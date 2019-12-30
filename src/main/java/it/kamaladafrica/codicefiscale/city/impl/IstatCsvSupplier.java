@@ -32,7 +32,7 @@ public class IstatCsvSupplier extends CsvSupplier {
 		return CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader().withTrim();
 	}
 
-	public static CsvSupplier of(URL url) {
+	public static IstatCsvSupplier of(URL url) {
 		return new IstatCsvSupplier(url);
 	}
 

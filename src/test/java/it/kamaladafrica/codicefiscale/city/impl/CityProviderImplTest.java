@@ -90,8 +90,17 @@ public class CityProviderImplTest {
 	@Test
 	public void testOfDefault() {
 		final CityProviderImpl provider = CityProviderImpl.ofDefault();
-		final City rome = provider.findByBelfiore("H501");
-		assertEquals("ROMA", rome.getName());
+		final City romeByBelfiore = provider.findByBelfiore("H501");
+		assertEquals("ROMA", romeByBelfiore.getName());
+		final City romeByName = provider.findByName("Roma");
+		assertEquals(romeByBelfiore, romeByName);
+
+		final City albaniaByBelfiore = provider.findByBelfiore("Z100");
+		assertEquals("ALBANIA", albaniaByBelfiore.getName());
+
+		final City albaniaByName = provider.findByName("Albania");
+		assertEquals(albaniaByName, albaniaByBelfiore);
+
 		assertTrue(provider.findAll().size() > 1000);
 	}
 
@@ -139,7 +148,8 @@ public class CityProviderImplTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindByNameNotExactNotFound() {
-		final CityProviderImpl providerExact = CityProviderImpl.of(ImmutableSet.copyOf(CITIES.values()), CityProviderImpl.DEFAULT_MINIMUM_MATCH_SCORE);
+		final CityProviderImpl providerExact = CityProviderImpl.of(ImmutableSet.copyOf(CITIES.values()),
+				CityProviderImpl.DEFAULT_MINIMUM_MATCH_SCORE);
 		providerExact.findByName("XXXX");
 	}
 
@@ -156,5 +166,4 @@ public class CityProviderImplTest {
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		assertEquals("MORLUPO", provider.findByBelfiore("XXXX").getName());
 	}
-
 }
