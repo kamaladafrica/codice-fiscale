@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
+import it.kamaladafrica.codicefiscale.city.CityProvider;
 import org.junit.Test;
 
 public class CodiceFiscaleTest {
@@ -129,7 +130,5 @@ public class CodiceFiscaleTest {
 		assertFalse(CodiceFiscale.of(PERSON).isOmocode());
 		assertTrue(CodiceFiscale.of(PERSON).toOmocodeLevel(7).isOmocode());
 	}
-	
-	
 
 }

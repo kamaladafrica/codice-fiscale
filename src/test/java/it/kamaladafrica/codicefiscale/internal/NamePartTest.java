@@ -12,8 +12,18 @@ public class NamePartTest {
 	}
 
 	@Test
-	public void testOf() {
+	public void testOf2Consonants() {
 		assertEquals("MRA", NamePart.of("Mario").getValue());
+	}
+
+	@Test
+	public void testOf4Consonants() {
+		assertEquals("FRC", NamePart.of("Federico").getValue());
+	}
+
+	@Test
+	public void testOf3Consonants() {
+		assertEquals("MRC", NamePart.of("Marco").getValue());
 	}
 
 }
