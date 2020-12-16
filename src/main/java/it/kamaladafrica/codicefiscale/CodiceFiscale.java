@@ -5,14 +5,11 @@ import static org.apache.commons.lang3.Validate.matchesPattern;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import it.kamaladafrica.codicefiscale.internal.*;
 import org.apache.commons.lang3.Validate;
 
 import it.kamaladafrica.codicefiscale.city.CityByBelfiore;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
-import it.kamaladafrica.codicefiscale.internal.BelfiorePart;
-import it.kamaladafrica.codicefiscale.internal.ControlPart;
-import it.kamaladafrica.codicefiscale.internal.DatePart;
-import it.kamaladafrica.codicefiscale.internal.NamePart;
 import it.kamaladafrica.codicefiscale.utils.OmocodeUtils;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -35,7 +32,7 @@ public final class CodiceFiscale {
 	private static final int OMOCODE_LEVEL_DATE_OFFSET = 3;
 
 	private final Person person;
-	private final NamePart lastname;
+	private final LastnamePart lastname;
 	private final NamePart firstname;
 	private final DatePart date;
 	private final BelfiorePart belfiore;
@@ -51,7 +48,7 @@ public final class CodiceFiscale {
 	@Getter(lazy = true, value = AccessLevel.PRIVATE)
 	private final String uncheckedValue = computeUncheckedValue();
 
-	private CodiceFiscale(Person person, NamePart lastname, NamePart firstname, DatePart date, BelfiorePart belfiore,
+	private CodiceFiscale(Person person, LastnamePart lastname, NamePart firstname, DatePart date, BelfiorePart belfiore,
 			int omocodeLevel) {
 		this.person = person;
 		this.lastname = lastname;
@@ -122,7 +119,7 @@ public final class CodiceFiscale {
 	public static final CodiceFiscale of(Person person) {
 
 		final NamePart firstname = NamePart.of(person.getFirstname());
-		final NamePart lastname = NamePart.of(person.getLastname());
+		final LastnamePart lastname = LastnamePart.of(person.getLastname());
 		final DatePart date = DatePart.of(person.getBirthDate(), person.isFemale());
 		final BelfiorePart belfiore = BelfiorePart.of(person.getCity());
 
@@ -133,7 +130,7 @@ public final class CodiceFiscale {
 
 		validate(value);
 
-		final NamePart lastname = NamePart.from(value.substring(LASTNAME_PART_INDEX, FIRSTNAME_PART_INDEX));
+		final LastnamePart lastname = LastnamePart.from(value.substring(LASTNAME_PART_INDEX, FIRSTNAME_PART_INDEX));
 		final NamePart firstname = NamePart.from(value.substring(FIRSTNAME_PART_INDEX, DATE_PART_INDEX));
 		final DatePart date = DatePart.from(value.substring(DATE_PART_INDEX, BELFIORE_PART_INDEX));
 		final BelfiorePart belfiore = BelfiorePart.from(value.substring(BELFIORE_PART_INDEX, CONTROL_PART_INDEX),
