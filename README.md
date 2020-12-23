@@ -232,3 +232,15 @@ Here are some ways for you to contribute:
 * GitHub is for social coding: if you want to write code, we encourage contributions [through pull requests](https://help.github.com/articles/creating-a-pull-request)
   from [forks of this repository](https://help.github.com/articles/fork-a-repo).
   If you want to contribute code this way, please reference a GitHub ticket as well covering the specific issue you are addressing.
+
+### Update italian cities names, provinces and codes
+
+Cities names, provinces and codes are stored in a csv file located in `src/main/resources/italia.csv`.
+
+In order to update csv with latest changes from [Anagrafe Nazione della Popolazione Residente](https://www.anpr.interno.it) easily, you can take advantage of the script `scripts/get_belfiore_anpr.sh`.
+It prints ready to use csv (filtered and formatted) to the standard output so you can redirect it to a file, for example.
+
+Usage:
+```sh
+$ scripts/get_belfiore_anpr.sh > src/main/resources/italia.csv
+```
