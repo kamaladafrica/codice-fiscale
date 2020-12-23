@@ -17,7 +17,7 @@ public class CsvSupplierTest {
 
 	@Test
 	public void testGet() throws MalformedURLException {
-		new CsvSupplier(getClass().getResource(CityProviderImpl.ISTAT_RESOURCE_PATH), StandardCharsets.UTF_8,
+		new CsvSupplier(getClass().getResource(CityProviderImpl.ITALIA_RESOURCE_PATH), StandardCharsets.UTF_8,
 				CSVFormat.DEFAULT, e -> null).get();
 	}
 }
