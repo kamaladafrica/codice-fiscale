@@ -220,7 +220,7 @@ and declare the dependency
 		<dependency>
 		  <groupId>it.kamaladafrica</groupId>
 		  <artifactId>codice-fiscale</artifactId>
-		  <version>1.1.0</version>
+		  <version>1.2.1</version>
 		</dependency>
 ```
 
