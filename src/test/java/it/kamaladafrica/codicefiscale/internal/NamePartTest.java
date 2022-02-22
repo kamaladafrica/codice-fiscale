@@ -8,7 +8,7 @@ public class NamePartTest {
 
 	@Test
 	public void testFromString() {
-		assertEquals("MRA", NamePart.from("MRA").getValue());
+		assertEquals("MRA", NamePart.from("MRA").getName());
 	}
 
 	@Test
@@ -24,6 +24,16 @@ public class NamePartTest {
 	@Test
 	public void testOf3Consonants() {
 		assertEquals("MRC", NamePart.of("Marco").getValue());
+	}
+
+	@Test
+	public void testFromPlaceholder() {
+		assertEquals("BO", NamePart.from("BOX").getName());
+	}
+
+	@Test
+	public void testOf2Letters() {
+		assertEquals("BOX", NamePart.of("Bo").getValue());
 	}
 
 }
