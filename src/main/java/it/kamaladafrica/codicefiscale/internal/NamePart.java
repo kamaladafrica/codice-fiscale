@@ -5,6 +5,7 @@ import static it.kamaladafrica.codicefiscale.utils.PartUtils.extractVowels;
 import static it.kamaladafrica.codicefiscale.utils.PartUtils.normalizeString;
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import lombok.AccessLevel;
@@ -30,6 +31,7 @@ public class NamePart extends AbstractPart {
 	public static NamePart from(String value) {
 		Validate.notEmpty(value, "invalid name: %s", value);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		value = StringUtils.removeEnd(value, "X");
 		return of(value);
 	}
 
