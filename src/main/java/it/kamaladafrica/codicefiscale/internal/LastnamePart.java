@@ -5,9 +5,9 @@ import static it.kamaladafrica.codicefiscale.utils.PartUtils.extractVowels;
 import static it.kamaladafrica.codicefiscale.utils.PartUtils.normalizeString;
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import it.kamaladafrica.codicefiscale.utils.PartUtils;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class LastnamePart extends AbstractPart {
 	public static LastnamePart from(String value) {
 		Validate.notEmpty(value, "invalid name: %s", value);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
-		value = StringUtils.removeEnd(value, "X");
+		value = PartUtils.removePlaceholderIfPresent(value);
 		return of(value);
 	}
 
