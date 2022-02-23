@@ -1,6 +1,6 @@
 # Codice Fiscale
- [ ![Download](https://api.bintray.com/packages/kamaladafrica/maven/codice-fiscale/images/download.svg) ](https://bintray.com/kamaladafrica/maven/codice-fiscale/_latestVersion)
-
+ [![Maven Central](https://maven-badges.herokuapp.com/maven-central/it.kamaladafrica/codice-fiscale/badge.svg)](https://maven-badges.herokuapp.com/maven-central/it.kamaladafrica/codice-fiscale)
+ 
 Yet another **Codice Fiscale** (italian tax code) calculator.
 Only natural person tax code calculation is supported (16 chars).
 
@@ -199,29 +199,14 @@ System.out.println(cf.getOmocodeLevel()); // 0
 
 ## Getting started
 
-All you need to do is to add the [Bintray jcenter](https://bintray.com/bintray/jcenter) repository in the maven pom.xml
+All you need to do is to declare the dependency
 
 ```xml
-		<repositories>
-			<repository>
-				<snapshots>
-					<enabled>false</enabled>
-				</snapshots>
-				<id>central</id>
-				<name>bintray</name>
-				<url>http://jcenter.bintray.com</url>
-			</repository>
-		</repositories>
-```
-
-and declare the dependency
-
-```xml
-		<dependency>
-		  <groupId>it.kamaladafrica</groupId>
-		  <artifactId>codice-fiscale</artifactId>
-		  <version>1.2.1</version>
-		</dependency>
+<dependency>
+  <groupId>it.kamaladafrica</groupId>
+  <artifactId>codice-fiscale</artifactId>
+  <version>...</version>
+</dependency>
 ```
 
 ## Contributing

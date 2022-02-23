@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
-import it.kamaladafrica.codicefiscale.city.CityProvider;
 import org.junit.Test;
 
 public class CodiceFiscaleTest {
