@@ -43,7 +43,7 @@ In order to see it in action, check the [tests](https://github.com/kamaladafrica
 You can calulate the tax code by person data.
 
 ```java
-CityByName cities = CityProvider.ofDefault();
+CityByName cities = CityProviderImpl.ofDefault();
 
 City rome = cities.findByName("Roma");
 // City rome = City.builder().name("ROMA").prov("RM").belfiore("H501").build();
