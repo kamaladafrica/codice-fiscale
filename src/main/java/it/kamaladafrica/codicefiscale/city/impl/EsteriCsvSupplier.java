@@ -16,7 +16,7 @@ import lombok.Getter;
 
 /**
  * Reads record from istat csv file
- * {@link https://www.istat.it/it/files//2011/01/Elenco-codici-e-denominazioni-unita-territoriali-estere.zip}
+ * <a href="https://www.istat.it/it/files//2011/01/Elenco-codici-e-denominazioni-unita-territoriali-estere.zip">https://www.istat.it/it/files//2011/01/Elenco-codici-e-denominazioni-unita-territoriali-estere.zip</a>
  */
 @Getter(PRIVATE)
 public class EsteriCsvSupplier extends CsvSupplier {

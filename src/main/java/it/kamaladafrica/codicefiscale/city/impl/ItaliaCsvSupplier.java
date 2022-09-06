@@ -14,7 +14,7 @@ import lombok.Getter;
 
 /**
  * Reads records from Anagrafe nazionale della popolazione residente csv file
- * {@link https://raw.githubusercontent.com/italia/anpr/master/src/archivi/ANPR_archivio_comuni.csv}
+ * <a href="https://raw.githubusercontent.com/italia/anpr/master/src/archivi/ANPR_archivio_comuni.csv">https://raw.githubusercontent.com/italia/anpr/master/src/archivi/ANPR_archivio_comuni.csv</a>
  */
 @Getter(PRIVATE)
 public class ItaliaCsvSupplier extends CsvSupplier {
