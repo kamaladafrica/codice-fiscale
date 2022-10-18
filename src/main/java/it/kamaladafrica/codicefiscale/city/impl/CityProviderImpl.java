@@ -20,9 +20,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import it.kamaladafrica.codicefiscale.City;
+import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
 
-public class CityProviderImpl implements CityProvider {
+public final class CityProviderImpl implements CityProvider {
 
 	public static final double DEFAULT_MINIMUM_MATCH_SCORE = 0.8;
 	public static final double EXACT_MATCH_SCORE = 1.0;
@@ -46,7 +47,7 @@ public class CityProviderImpl implements CityProvider {
 	}
 
 	private static String normalize(String s) {
-		return nullToEmpty(s).toUpperCase();
+		return nullToEmpty(s).toUpperCase(CodiceFiscale.LOCALE);
 	}
 
 	@Override
@@ -85,23 +86,23 @@ public class CityProviderImpl implements CityProvider {
 		return result;
 	}
 
-	public static final CityProviderImpl ofDefault() {
+	public static CityProviderImpl ofDefault() {
 		return of(defaultSupplier(), DEFAULT_MINIMUM_MATCH_SCORE);
 	}
 
-	public static final CityProviderImpl of(Supplier<Set<City>> supplier, double minimumMatchScore) {
+	public static CityProviderImpl of(Supplier<Set<City>> supplier, double minimumMatchScore) {
 		return of(supplier.get(), minimumMatchScore);
 	}
 
-	public static final CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
+	public static CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
 		return new CityProviderImpl(cities, minimumMatchScore);
 	}
 
-	public static final CityProviderImpl of(Supplier<Set<City>> supplier) {
+	public static CityProviderImpl of(Supplier<Set<City>> supplier) {
 		return of(supplier.get(), DEFAULT_MINIMUM_MATCH_SCORE);
 	}
 
-	public static final CityProviderImpl of(Set<City> cities) {
+	public static CityProviderImpl of(Set<City> cities) {
 		return of(cities, DEFAULT_MINIMUM_MATCH_SCORE);
 	}
 

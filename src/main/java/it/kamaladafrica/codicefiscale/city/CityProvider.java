@@ -9,7 +9,7 @@ public interface CityProvider extends CityByName, CityByBelfiore {
 
 	List<City> findAll();
 
-	public static CityProvider ofDefault() {
+	static CityProvider ofDefault() {
 		return CityProviderImpl.ofDefault();
 	}
 
