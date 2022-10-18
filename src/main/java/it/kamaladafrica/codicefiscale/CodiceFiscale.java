@@ -5,11 +5,15 @@ import static org.apache.commons.lang3.Validate.matchesPattern;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import it.kamaladafrica.codicefiscale.internal.*;
 import org.apache.commons.lang3.Validate;
 
 import it.kamaladafrica.codicefiscale.city.CityByBelfiore;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
+import it.kamaladafrica.codicefiscale.internal.BelfiorePart;
+import it.kamaladafrica.codicefiscale.internal.ControlPart;
+import it.kamaladafrica.codicefiscale.internal.DatePart;
+import it.kamaladafrica.codicefiscale.internal.LastnamePart;
+import it.kamaladafrica.codicefiscale.internal.NamePart;
 import it.kamaladafrica.codicefiscale.utils.OmocodeUtils;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
