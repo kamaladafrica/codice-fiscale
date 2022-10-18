@@ -17,7 +17,7 @@ import lombok.Getter;
  * <a href="https://raw.githubusercontent.com/italia/anpr/master/src/archivi/ANPR_archivio_comuni.csv">https://raw.githubusercontent.com/italia/anpr/master/src/archivi/ANPR_archivio_comuni.csv</a>
  */
 @Getter(PRIVATE)
-public class ItaliaCsvSupplier extends CsvSupplier {
+public final class ItaliaCsvSupplier extends CsvSupplier {
 
 	private ItaliaCsvSupplier(URL resource) {
 		super(resource, StandardCharsets.UTF_8, buildFormat(), mapper());

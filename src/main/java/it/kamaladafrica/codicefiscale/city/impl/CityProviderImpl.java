@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableMap;
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
 
-public class CityProviderImpl implements CityProvider {
+public final class CityProviderImpl implements CityProvider {
 
 	public static final double DEFAULT_MINIMUM_MATCH_SCORE = 0.8;
 	public static final double EXACT_MATCH_SCORE = 1.0;

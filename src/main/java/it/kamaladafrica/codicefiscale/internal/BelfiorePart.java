@@ -21,7 +21,7 @@ import lombok.Value;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class BelfiorePart extends AbstractPart {
+public final class BelfiorePart extends AbstractPart {
 
 	private final static String VALIDATION_PATTERN = "^(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))$";
 
