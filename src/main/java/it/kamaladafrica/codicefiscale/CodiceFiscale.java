@@ -2,6 +2,7 @@ package it.kamaladafrica.codicefiscale;
 
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -25,7 +26,9 @@ import lombok.Value;
 @ToString
 @EqualsAndHashCode
 public final class CodiceFiscale {
-
+	
+	public static final Locale LOCALE = Locale.ITALY;
+	
 	private final static String VALIDATION_PATTERN = "^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$";
 	private final static int CONTROL_PART_INDEX = 15;
 	private final static int LASTNAME_PART_INDEX = 0;
@@ -53,7 +56,7 @@ public final class CodiceFiscale {
 	private final String uncheckedValue = computeUncheckedValue();
 
 	private CodiceFiscale(Person person, LastnamePart lastname, NamePart firstname, DatePart date, BelfiorePart belfiore,
-			int omocodeLevel) {
+			int omocodeLevel) { 
 		this.person = person;
 		this.lastname = lastname;
 		this.firstname = firstname;

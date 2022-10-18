@@ -2,6 +2,7 @@ package it.kamaladafrica.codicefiscale.internal;
 
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
+import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class ControlPart extends AbstractPart {
 	protected String computeValue() {
 		int even = 0;
 		int odd = 0;
-		char[] chars = code.toUpperCase().toCharArray();
+		char[] chars = code.toUpperCase(CodiceFiscale.LOCALE).toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
 			int index = charToIndex(c);
@@ -64,7 +65,7 @@ public class ControlPart extends AbstractPart {
 	protected String applyOmocodeLevel(String computeValue) {
 		return computeValue;
 	}
-	
+
 	public boolean isEqual(char controlChar) {
 		return getValue().charAt(0) == controlChar;
 	}

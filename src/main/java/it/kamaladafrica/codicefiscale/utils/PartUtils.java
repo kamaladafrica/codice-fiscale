@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -14,7 +15,7 @@ public class PartUtils {
 	public final static String PLACEHOLDER = "X";
 
 	public static String normalizeString(String s) {
-		return RegexUtils.extract(RegexUtils.CF_ALLOWED_CHARS, defaultString(s).toUpperCase());
+		return RegexUtils.extract(RegexUtils.CF_ALLOWED_CHARS, defaultString(s).toUpperCase(CodiceFiscale.LOCALE));
 	}
 
 	public static String extractConsonants(String s) {

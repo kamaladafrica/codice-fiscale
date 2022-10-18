@@ -20,6 +20,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import it.kamaladafrica.codicefiscale.City;
+import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
 
 public final class CityProviderImpl implements CityProvider {
@@ -46,7 +47,7 @@ public final class CityProviderImpl implements CityProvider {
 	}
 
 	private static String normalize(String s) {
-		return nullToEmpty(s).toUpperCase();
+		return nullToEmpty(s).toUpperCase(CodiceFiscale.LOCALE);
 	}
 
 	@Override
