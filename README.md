@@ -1,5 +1,7 @@
 # Codice Fiscale
- [![Maven Central](https://maven-badges.herokuapp.com/maven-central/it.kamaladafrica/codice-fiscale/badge.svg)](https://maven-badges.herokuapp.com/maven-central/it.kamaladafrica/codice-fiscale)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/it.kamaladafrica/codice-fiscale/badge.svg)](https://maven-badges.herokuapp.com/maven-central/it.kamaladafrica/codice-fiscale)
+[![pmd](https://github.com/kamaladafrica/codice-fiscale/actions/workflows/pmd.yml/badge.svg)](https://github.com/kamaladafrica/codice-fiscale/actions/workflows/pmd.yml)
+[![CodeQL](https://github.com/kamaladafrica/codice-fiscale/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/kamaladafrica/codice-fiscale/actions/workflows/codeql-analysis.yml)
  
 Yet another **Codice Fiscale** (italian tax code) calculator.
 Only natural person tax code calculation is supported (16 chars).
