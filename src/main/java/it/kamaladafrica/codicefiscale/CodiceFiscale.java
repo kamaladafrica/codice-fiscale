@@ -116,11 +116,11 @@ public final class CodiceFiscale {
 		return ControlPart.of(getUncheckedValue());
 	}
 
-	public static final CodiceFiscale of(String code) {
+	public static CodiceFiscale of(String code) {
 		return of(code, CityProvider.ofDefault());
 	}
 
-	public static final CodiceFiscale of(Person person) {
+	public static CodiceFiscale of(Person person) {
 
 		final NamePart firstname = NamePart.of(person.getFirstname());
 		final LastnamePart lastname = LastnamePart.of(person.getLastname());
@@ -130,7 +130,7 @@ public final class CodiceFiscale {
 		return new CodiceFiscale(person, lastname, firstname, date, belfiore, 0);
 	}
 
-	public static final CodiceFiscale of(String value, CityByBelfiore provider) {
+	public static CodiceFiscale of(String value, CityByBelfiore provider) {
 
 		validate(value);
 

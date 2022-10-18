@@ -85,23 +85,23 @@ public class CityProviderImpl implements CityProvider {
 		return result;
 	}
 
-	public static final CityProviderImpl ofDefault() {
+	public static CityProviderImpl ofDefault() {
 		return of(defaultSupplier(), DEFAULT_MINIMUM_MATCH_SCORE);
 	}
 
-	public static final CityProviderImpl of(Supplier<Set<City>> supplier, double minimumMatchScore) {
+	public static CityProviderImpl of(Supplier<Set<City>> supplier, double minimumMatchScore) {
 		return of(supplier.get(), minimumMatchScore);
 	}
 
-	public static final CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
+	public static CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
 		return new CityProviderImpl(cities, minimumMatchScore);
 	}
 
-	public static final CityProviderImpl of(Supplier<Set<City>> supplier) {
+	public static CityProviderImpl of(Supplier<Set<City>> supplier) {
 		return of(supplier.get(), DEFAULT_MINIMUM_MATCH_SCORE);
 	}
 
-	public static final CityProviderImpl of(Set<City> cities) {
+	public static CityProviderImpl of(Set<City> cities) {
 		return of(cities, DEFAULT_MINIMUM_MATCH_SCORE);
 	}
 
