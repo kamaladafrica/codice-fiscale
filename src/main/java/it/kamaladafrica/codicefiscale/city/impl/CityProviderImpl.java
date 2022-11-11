@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.text.similarity.JaroWinklerDistance;
+import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 import org.apache.commons.text.similarity.SimilarityScoreFrom;
 
 import com.google.common.collect.ImmutableList;
@@ -63,7 +63,7 @@ public final class CityProviderImpl implements CityProvider {
 
 			result = cityByName.get(term);
 			if (minimumMatchScore != EXACT_MATCH_SCORE && result == null) {
-				final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(new JaroWinklerDistance(), term);
+				final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(new JaroWinklerSimilarity(), term);
 				result = cityByName.entrySet().stream().map(e -> Pair.of(e.getValue(), score.apply(e.getKey())))
 						.filter(e -> e.getValue() >= minimumMatchScore).max(Comparator.comparing(Entry::getValue))
 						.map(Entry::getKey).orElse(null);
