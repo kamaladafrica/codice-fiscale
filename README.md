@@ -171,7 +171,7 @@ A *codice fiscale* can be omocodic if two or more people share the same codice f
 
 Level indicates how many letters are changed. A letter is changed when another person has the same *codice fiscale*, so a omocode level 2 means that at least 3 people have the same *codice fiscale*.
 
-Level is 0 <= level <= 7.
+Level is 0 <= level <= 127.
 
 You can change omocode level using `toOmocodeLevel`. The method `normalized` is the same as `toOmocodeLevel(0)`
 
@@ -184,13 +184,13 @@ Person person =	Person.builder()
 	.city(rome)
 	.build();
 
-CodiceFiscale cf0 = CodiceFiscale.of(person).toOmocodeLevel(2);
+CodiceFiscale cf0 = CodiceFiscale.of(person).toOmocodeLevel(3);
 System.out.println(cf0.getValue()); // RSSMRA75C22H501I
 System.out.println(cf0.getOmocodeLevel()); // 0
 
-CodiceFiscale cf2 = CodiceFiscale.of(person).toOmocodeLevel(2);
+CodiceFiscale cf2 = CodiceFiscale.of(person).toOmocodeLevel(3);
 System.out.println(cf2.getValue()); // RSSMRA75C22H5LML
-System.out.println(cf2.getOmocodeLevel()); // 2
+System.out.println(cf2.getOmocodeLevel()); // 3
 
 System.out.println(cf0.isEqual(cf2)); // true
 
@@ -198,6 +198,15 @@ CodiceFiscale cf = cf2.normalized();
 System.out.println(cf.getValue()); // RSSMRA75C22H501I
 System.out.println(cf.getOmocodeLevel()); // 0
 ```
+
+##### Implementation note
+
+In omocodic codes only numbers can be replaced with a one-to-one mapping to a letter. Numbers are 7 in a standard **codice fiscale** so the level is computed as it was a bitmask where first 4 digit are for date part, last 3 for belfiore part. For example 0001-001 means, from left to right, that are changing the last digit of date part and the last of belfiore part (ones that have bit set to 1); the level associated is 9 (0001001).
+
+For example, in *RSSMRA75C22H5LML* code the omocode level is 3 because it is computed as 0000011 (no date part is replaced, last 2 digit of belfiore part are replaced).
+
+
+
 
 ## Getting started
 
