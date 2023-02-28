@@ -1,5 +1,6 @@
 package it.kamaladafrica.codicefiscale;
 
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
 import java.util.Locale;
@@ -15,7 +16,6 @@ import it.kamaladafrica.codicefiscale.internal.ControlPart;
 import it.kamaladafrica.codicefiscale.internal.DatePart;
 import it.kamaladafrica.codicefiscale.internal.LastnamePart;
 import it.kamaladafrica.codicefiscale.internal.NamePart;
-import it.kamaladafrica.codicefiscale.utils.OmocodeUtils;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,9 +26,9 @@ import lombok.Value;
 @ToString
 @EqualsAndHashCode
 public final class CodiceFiscale {
-	
+
 	public static final Locale LOCALE = Locale.ITALY;
-	
+
 	private final static String VALIDATION_PATTERN = "^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$";
 	private final static int CONTROL_PART_INDEX = 15;
 	private final static int LASTNAME_PART_INDEX = 0;
@@ -37,6 +37,13 @@ public final class CodiceFiscale {
 	private final static int BELFIORE_PART_INDEX = 11;
 
 	private static final int OMOCODE_LEVEL_DATE_OFFSET = 3;
+	private static final int OMOCODE_LEVEL_BELFIORE_OFFSET = 0;
+	private static final int OMOCODE_LEVEL_DATE_LOCAL_MASK = 0b1111;
+	private static final int OMOCODE_LEVEL_BELFIORE_LOCAL_MASK = 0b111;
+	private static final int OMOCODE_LEVEL_DATE_MASK = OMOCODE_LEVEL_DATE_LOCAL_MASK << OMOCODE_LEVEL_DATE_OFFSET;
+	private static final int OMOCODE_LEVEL_BELFIORE_MASK = OMOCODE_LEVEL_BELFIORE_LOCAL_MASK << OMOCODE_LEVEL_BELFIORE_OFFSET;
+
+	private static final int OMOCODE_LEVEL_MASK = OMOCODE_LEVEL_DATE_MASK | OMOCODE_LEVEL_BELFIORE_MASK;
 
 	private final Person person;
 	private final LastnamePart lastname;
@@ -55,8 +62,8 @@ public final class CodiceFiscale {
 	@Getter(lazy = true, value = AccessLevel.PRIVATE)
 	private final String uncheckedValue = computeUncheckedValue();
 
-	private CodiceFiscale(Person person, LastnamePart lastname, NamePart firstname, DatePart date, BelfiorePart belfiore,
-			int omocodeLevel) { 
+	private CodiceFiscale(Person person, LastnamePart lastname, NamePart firstname, DatePart date,
+			BelfiorePart belfiore, int omocodeLevel) {
 		this.person = person;
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -88,10 +95,12 @@ public final class CodiceFiscale {
 	}
 
 	public CodiceFiscale toOmocodeLevel(int level) {
-		Validate.inclusiveBetween(0, 7, level, "invalid omocode level: 0 <= %s <= 7", level);
-
-		DatePart datePart = getDate().toOmocodeLevel(Math.max(0, level - OMOCODE_LEVEL_DATE_OFFSET));
-		BelfiorePart belfiorePart = getBelfiore().toOmocodeLevel(Math.min(OMOCODE_LEVEL_DATE_OFFSET, level));
+		if ((level & OMOCODE_LEVEL_MASK) != 0) {
+			inclusiveBetween(0, OMOCODE_LEVEL_MASK, level, "invalid omocode level: 0 <= %s <= %s", level,
+					OMOCODE_LEVEL_MASK);
+		}
+		DatePart datePart = getDate().toOmocodeLevel(level & OMOCODE_LEVEL_DATE_MASK);
+		BelfiorePart belfiorePart = getBelfiore().toOmocodeLevel(level & OMOCODE_LEVEL_BELFIORE_MASK);
 
 		return getOmocodeLevel() == level ? this
 				: new CodiceFiscale(getPerson(), getLastname(), getFirstname(), datePart, belfiorePart, level);
@@ -146,8 +155,10 @@ public final class CodiceFiscale {
 		final Person person = Person.builder().firstname(firstname.getName()).lastname(lastname.getName())
 				.birthDate(date.getDate()).isFemale(date.isFemale()).city(belfiore.getCity()).build();
 
-		final CodiceFiscale result = new CodiceFiscale(person, lastname, firstname, date, belfiore,
-				OmocodeUtils.level(value));
+		final int level = (date.getOmocodeLevel().getLevel() << OMOCODE_LEVEL_DATE_OFFSET)
+				| (belfiore.getOmocodeLevel().getLevel() << OMOCODE_LEVEL_BELFIORE_OFFSET);
+
+		final CodiceFiscale result = new CodiceFiscale(person, lastname, firstname, date, belfiore, level);
 
 		Validate.isTrue(Objects.equals(result.getValue(), value), "expected %s, but found %s", value,
 				result.getValue());

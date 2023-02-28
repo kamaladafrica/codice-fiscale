@@ -10,23 +10,23 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public abstract class AbstractPart implements Part {
 
-	int omocodeLevel;
+	Omocode omocodeLevel;
 
 	@Getter(lazy = true)
 	String value = computeValueInternal();
 
-	public AbstractPart() {
-		this(0);
+	protected AbstractPart() {
+		this(Omocode.unsupported());
 	}
 
-	public AbstractPart(int omocodeLevel) {
+	protected AbstractPart(Omocode omocodeLevel) {
 		this.omocodeLevel = omocodeLevel;
 	}
 
 	private String computeValueInternal() {
-		final String value = applyOmocodeLevel(computeValue());
-		validateValue(value);
-		return value;
+		final String newValue = applyOmocodeLevel(computeValue());
+		validateValue(newValue);
+		return newValue;
 	}
 
 	protected abstract String computeValue();

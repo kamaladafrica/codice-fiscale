@@ -1,6 +1,5 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
 import static org.apache.commons.lang3.Validate.matchesPattern;
 
 import java.time.LocalDate;
@@ -9,7 +8,6 @@ import org.apache.commons.lang3.Validate;
 
 import com.google.common.primitives.ImmutableIntArray;
 
-import it.kamaladafrica.codicefiscale.utils.OmocodeUtils;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +15,14 @@ import lombok.ToString;
 import lombok.Value;
 
 @Value
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.NONE)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public final class DatePart extends AbstractPart {
 
 	private final static String VALIDATION_PATTERN = "^(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])$";
 
-	private static final ImmutableIntArray OMOCODE_INDEXES = ImmutableIntArray.of(4, 3, 1, 0);
+	private static final ImmutableIntArray OMOCODE_INDEXES = ImmutableIntArray.of(0, 1, 3, 4);
 
 	private static final String DATE_PART_FORMAT = "%02d%s%02d";
 	private static final String MONTHS_CHARS = "ABCDEHLMPRST";
@@ -34,10 +32,8 @@ public final class DatePart extends AbstractPart {
 	LocalDate date;
 	boolean female;
 
-	private DatePart(LocalDate date, boolean female, int level) {
+	private DatePart(LocalDate date, boolean female, Omocode level) {
 		super(level);
-		inclusiveBetween(0, OMOCODE_INDEXES.length(), level, "invalid omocode level for date part: 0 <= %s <= %s",
-				level, OMOCODE_INDEXES.length());
 		this.date = date;
 		this.female = female;
 	}
@@ -45,17 +41,14 @@ public final class DatePart extends AbstractPart {
 	public static DatePart from(String value) {
 		Validate.notEmpty(value, "invalid value: %s", value);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
-		DatePartInput input = toInput(value);
-		return new DatePart(input.getDate(), input.isFemale(), getOmocodeLevel(value));
-	}
-
-	private static int getOmocodeLevel(String value) {
-		return OmocodeUtils.level(value, OMOCODE_INDEXES.toArray());
+		final Omocode omocodeLevel = Omocode.of(value, OMOCODE_INDEXES);
+		DatePartInput input = toInput(omocodeLevel.normalize(value));
+		return new DatePart(input.getDate(), input.isFemale(), omocodeLevel);
 	}
 
 	public static DatePart of(LocalDate date, boolean isFemale) {
 		Validate.notNull(date);
-		return new DatePart(date, isFemale);
+		return new DatePart(date, isFemale, Omocode.of(OMOCODE_INDEXES));
 	}
 
 	@Override
@@ -73,11 +66,10 @@ public final class DatePart extends AbstractPart {
 		return value;
 	}
 
-	private static DatePartInput toInput(String value) {
-		value = normalizeOmocode(value);
-		int year = Integer.parseInt(value.substring(0, 2)) + MILLENNIUM;
-		int month = 1 + MONTHS_CHARS.indexOf(value.substring(2, 3));
-		int day = Integer.parseInt(value.substring(3, 5));
+	private static DatePartInput toInput(String normalizedValue) {
+		int year = Integer.parseInt(normalizedValue.substring(0, 2)) + MILLENNIUM;
+		int month = 1 + MONTHS_CHARS.indexOf(normalizedValue.substring(2, 3));
+		int day = Integer.parseInt(normalizedValue.substring(3, 5));
 
 		boolean female = day > FEMAIL_DAY_OFFSET;
 		if (female) {
@@ -92,21 +84,13 @@ public final class DatePart extends AbstractPart {
 		return new DatePartInput(date, female);
 	}
 
-	private static String normalizeOmocode(String value) {
-		return OmocodeUtils.normalize(value, OMOCODE_INDEXES.toArray());
-	}
-
 	@Override
 	protected String applyOmocodeLevel(String value) {
-		final int level = getOmocodeLevel();
-		if (level > 0) {
-			return OmocodeUtils.apply(value, OMOCODE_INDEXES.subArray(0, level).toArray());
-		}
-		return value;
+		return getOmocodeLevel().apply(value);
 	}
 
 	public DatePart toOmocodeLevel(int level) {
-		return getOmocodeLevel() == level ? this : new DatePart(date, female, level);
+		return getOmocodeLevel().isLevel(level) ? this : new DatePart(date, female, getOmocodeLevel().withLevel(level));
 	}
 
 	@Override

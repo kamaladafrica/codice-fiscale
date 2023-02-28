@@ -2,6 +2,7 @@ package it.kamaladafrica.codicefiscale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
@@ -62,8 +63,8 @@ public class CodiceFiscaleTest {
 	@Test
 	public void testToOmocodeLevel() {
 		assertTrue(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(0).isEqual(CODICE_FISCALE, false));
-		assertTrue(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(2).isEqual(CODICE_FISCALE_2, false));
-		assertFalse(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(2).isEqual(CODICE_FISCALE, false));
+		assertTrue(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(3).isEqual(CODICE_FISCALE_2, false));
+		assertFalse(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(3).isEqual(CODICE_FISCALE, false));
 	}
 
 	@Test
@@ -109,17 +110,17 @@ public class CodiceFiscaleTest {
 		assertFalse(CodiceFiscale.isFormatValid("RA75C21H501X"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testValidate() {
-		CodiceFiscale.validate("RSSMRA75C21H501X");
+		assertThrows(IllegalArgumentException.class, () -> CodiceFiscale.validate("RSSMRA75C21H501X"));
 	}
 
 	@Test
 	public void testGetValue() {
 		assertEquals(CODICE_FISCALE, CodiceFiscale.of(PERSON).getValue());
 		assertEquals(CODICE_FISCALE, CodiceFiscale.of(CODICE_FISCALE).getValue());
-		assertEquals(CODICE_FISCALE_2, CodiceFiscale.of(PERSON).toOmocodeLevel(2).getValue());
-		assertEquals(CODICE_FISCALE_2, CodiceFiscale.of(CODICE_FISCALE).toOmocodeLevel(2).getValue());
+		assertEquals(CODICE_FISCALE_2, CodiceFiscale.of(PERSON).toOmocodeLevel(3).getValue());
+		assertEquals(CODICE_FISCALE_2, CodiceFiscale.of(CODICE_FISCALE).toOmocodeLevel(3).getValue());
 	}
 	
 	@Test
