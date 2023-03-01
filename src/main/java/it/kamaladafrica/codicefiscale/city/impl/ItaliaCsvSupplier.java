@@ -26,9 +26,9 @@ public final class ItaliaCsvSupplier extends CsvSupplier {
 	}
 
 	private static Function<CSVRecord, City> mapper() {
-		return record -> City.builder().name(record.get(1).toUpperCase(CodiceFiscale.LOCALE))
-				.prov(record.get(2).toUpperCase(CodiceFiscale.LOCALE))
-				.belfiore(record.get(0).toUpperCase(CodiceFiscale.LOCALE)).build();
+		return rec -> City.builder().name(rec.get(1).toUpperCase(CodiceFiscale.LOCALE))
+				.prov(rec.get(2).toUpperCase(CodiceFiscale.LOCALE))
+				.belfiore(rec.get(0).toUpperCase(CodiceFiscale.LOCALE)).build();
 	}
 
 	private static CSVFormat buildFormat() {

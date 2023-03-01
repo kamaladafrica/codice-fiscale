@@ -11,9 +11,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class RegexUtils {
 
-	public final static Pattern CF_ALLOWED_CHARS = Pattern.compile("[A-Z0-9]", CASE_INSENSITIVE);
-	public final static Pattern CONSONANT_PATTERN = Pattern.compile("[B-DF-HJ-NP-TV-Z]", CASE_INSENSITIVE);
-	public final static Pattern VOWEL_PATTERN = Pattern.compile("[AEIOU]", CASE_INSENSITIVE);
+	public static final Pattern CF_ALLOWED_CHARS = Pattern.compile("[A-Z0-9]", CASE_INSENSITIVE);
+	public static final Pattern CONSONANT_PATTERN = Pattern.compile("[B-DF-HJ-NP-TV-Z]", CASE_INSENSITIVE);
+	public static final Pattern VOWEL_PATTERN = Pattern.compile("[AEIOU]", CASE_INSENSITIVE);
 
 	public void doWithMatchedGroups(Matcher m, Consumer<String> consumer) {
 		while (m.find()) {

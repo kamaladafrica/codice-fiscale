@@ -27,15 +27,15 @@ public final class EsteriCsvSupplier extends CsvSupplier {
 	}
 
 	private static Function<CSVRecord, City> mapper() {
-		return record -> City.builder().name(record.get(6).toUpperCase(CodiceFiscale.LOCALE))
-				.prov(record.get(2).toUpperCase(CodiceFiscale.LOCALE))
-				.belfiore(record.get(9).toUpperCase(CodiceFiscale.LOCALE)).build();
+		return rec -> City.builder().name(rec.get(6).toUpperCase(CodiceFiscale.LOCALE))
+				.prov(rec.get(2).toUpperCase(CodiceFiscale.LOCALE))
+				.belfiore(rec.get(9).toUpperCase(CodiceFiscale.LOCALE)).build();
 	}
 
 	@Override
 	protected Stream<CSVRecord> streamRecords(CSVParser parser) {
 		// ignore Italy and n.d.
-		return super.streamRecords(parser).filter(record -> record.get(9).startsWith("Z"));
+		return super.streamRecords(parser).filter(rec -> rec.get(9).startsWith("Z"));
 	}
 
 	private static CSVFormat buildFormat() {

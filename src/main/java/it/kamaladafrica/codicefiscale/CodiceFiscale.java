@@ -29,12 +29,12 @@ public final class CodiceFiscale {
 
 	public static final Locale LOCALE = Locale.ITALY;
 
-	private final static String VALIDATION_PATTERN = "^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$";
-	private final static int CONTROL_PART_INDEX = 15;
-	private final static int LASTNAME_PART_INDEX = 0;
-	private final static int FIRSTNAME_PART_INDEX = 3;
-	private final static int DATE_PART_INDEX = 6;
-	private final static int BELFIORE_PART_INDEX = 11;
+	private static final String VALIDATION_PATTERN = "^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$";
+	private static final int CONTROL_PART_INDEX = 15;
+	private static final int LASTNAME_PART_INDEX = 0;
+	private static final int FIRSTNAME_PART_INDEX = 3;
+	private static final int DATE_PART_INDEX = 6;
+	private static final int BELFIORE_PART_INDEX = 11;
 
 	private static final int OMOCODE_LEVEL_DATE_OFFSET = 3;
 	private static final int OMOCODE_LEVEL_BELFIORE_OFFSET = 0;
@@ -115,8 +115,8 @@ public final class CodiceFiscale {
 	}
 
 	private String computeValue() {
-		String value = getUncheckedValue() + getControl().getValue();
-		return validate(value);
+		String computedValue = getUncheckedValue() + getControl().getValue();
+		return validate(computedValue);
 	}
 
 	private String computeUncheckedValue() {
@@ -181,7 +181,7 @@ public final class CodiceFiscale {
 	}
 
 	public static String validate(String value) {
-		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		matchesPattern(value, VALIDATION_PATTERN);
 		final ControlPart control = ControlPart.of(value.substring(LASTNAME_PART_INDEX, CONTROL_PART_INDEX));
 		final char currentControl = value.charAt(CONTROL_PART_INDEX);
 		Validate.isTrue(control.isEqual(currentControl), "invalid control char: expected %s, but found %s",

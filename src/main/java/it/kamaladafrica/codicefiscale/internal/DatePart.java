@@ -20,7 +20,7 @@ import lombok.Value;
 @ToString(callSuper = true)
 public final class DatePart extends AbstractPart {
 
-	private final static String VALIDATION_PATTERN = "^(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])$";
+	private static final String VALIDATION_PATTERN = "^(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])$";
 
 	private static final ImmutableIntArray OMOCODE_INDEXES = ImmutableIntArray.of(0, 1, 3, 4);
 
@@ -39,8 +39,8 @@ public final class DatePart extends AbstractPart {
 	}
 
 	public static DatePart from(String value) {
-		Validate.notEmpty(value, "invalid value: %s", value);
-		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		Validate.notEmpty(value);
+		matchesPattern(value, VALIDATION_PATTERN);
 		final Omocode omocodeLevel = Omocode.of(value, OMOCODE_INDEXES);
 		DatePartInput input = toInput(omocodeLevel.normalize(value));
 		return new DatePart(input.getDate(), input.isFemale(), omocodeLevel);
@@ -62,7 +62,7 @@ public final class DatePart extends AbstractPart {
 		}
 
 		String value = String.format(DATE_PART_FORMAT, year, MONTHS_CHARS.charAt(month), day);
-		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		matchesPattern(value, VALIDATION_PATTERN);
 		return value;
 	}
 

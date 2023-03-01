@@ -12,28 +12,28 @@ public class BelfiorePartTest {
 
 	@Test
 	public void testFromString() {
-		assertEquals(BelfiorePart.from("H501").getValue(), "H501");
-		assertEquals(BelfiorePart.from("H501").getCity(), ROMA);
+		assertEquals("H501", BelfiorePart.from("H501").getValue());
+		assertEquals(ROMA, BelfiorePart.from("H501").getCity());
 
-		assertEquals(BelfiorePart.from("H50M").getValue(), "H50M");
-		assertEquals(BelfiorePart.from("H50M").getCity(), ROMA);
+		assertEquals("H50M", BelfiorePart.from("H50M").getValue());
+		assertEquals(ROMA, BelfiorePart.from("H50M").getCity());
 	}
 
 	@Test
 	public void testOf() {
-		assertEquals(BelfiorePart.of(ROMA).getValue(), "H501");
-		assertEquals(BelfiorePart.from("H501").getCity(), ROMA);
+		assertEquals("H501", BelfiorePart.of(ROMA).getValue());
+		assertEquals(ROMA, BelfiorePart.from("H501").getCity());
 	}
 
 	@Test
 	public void testToOmocodeLevel() {
-		assertEquals(BelfiorePart.of(ROMA).toOmocodeLevel(1).getValue(), "H50M");
-		assertEquals(BelfiorePart.of(ROMA).toOmocodeLevel(1).toOmocodeLevel(0).getValue(), "H501");
+		assertEquals("H50M", BelfiorePart.of(ROMA).toOmocodeLevel(1).getValue());
+		assertEquals("H501", BelfiorePart.of(ROMA).toOmocodeLevel(1).toOmocodeLevel(0).getValue());
 	}
 
 	@Test
 	public void testGetValue() {
-		assertEquals(BelfiorePart.of(ROMA).getValue(), "H501");
+		assertEquals("H501", BelfiorePart.of(ROMA).getValue());
 	}
 
 }

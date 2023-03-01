@@ -22,31 +22,31 @@ public class NamePart extends AbstractPart {
 
 	public static final int INDEX_TO_REMOVE = 1;
 
-	private final static String MISSING_LETTERS_PLACEHOLDER = "XXX";
+	private static final String MISSING_LETTERS_PLACEHOLDER = "XXX";
 
-	private final static String VALIDATION_PATTERN = "^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z])$";
+	private static final String VALIDATION_PATTERN = "^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z])$";
 
 	String name;
 
 	public static NamePart from(String value) {
-		Validate.notEmpty(value, "invalid name: %s", value);
+		Validate.notEmpty(value);
 		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
 		value = PartUtils.removePlaceholderIfPresent(value);
 		return of(value);
 	}
 
 	public static NamePart of(String value) {
-		Validate.notEmpty(value, "invalid name: %s", value);
-		Validate.validIndex(normalizeString(value), 1, "invalid name: %s", value);
+		Validate.notEmpty(value);
+		Validate.validIndex(normalizeString(value), 1);
 		return new NamePart(value);
 	}
 
 	@Override
 	protected String computeValue() {
-		String name = normalizeString(getName());
+		String normalizedName = normalizeString(getName());
 		StringBuilder part = new StringBuilder();
-		part.append(nameConsonants(name));
-		part.append(extractVowels(name));
+		part.append(nameConsonants(normalizedName));
+		part.append(extractVowels(normalizedName));
 		part.append(MISSING_LETTERS_PLACEHOLDER);
 		part.setLength(PART_LENGTH);
 

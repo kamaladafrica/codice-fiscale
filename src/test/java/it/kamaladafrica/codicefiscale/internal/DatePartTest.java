@@ -28,13 +28,13 @@ public class DatePartTest {
 
 	@Test
 	public void testOf() {
-		assertEquals(DatePart.of(DATE, false).getValue(), "75C21");
-		assertEquals(DatePart.of(DATE, true).getValue(), "75C61");
+		assertEquals("75C21", DatePart.of(DATE, false).getValue());
+		assertEquals("75C61", DatePart.of(DATE, true).getValue());
 	}
 
 	@Test
 	public void testToOmocodeLevel() {
-		assertEquals(DatePart.from("75C61").toOmocodeLevel(1).getValue(), "75C6M");
+		assertEquals("75C6M", DatePart.from("75C61").toOmocodeLevel(1).getValue());
 	}
 
 }

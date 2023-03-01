@@ -2,8 +2,9 @@ package it.kamaladafrica.codicefiscale.city.impl;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -160,10 +161,10 @@ public class CityProviderImplTest {
 		assertEquals("MORLUPO", provider.findByBelfiore("B456").getName());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testFindByBelfioreNotFound() {
 		final CityProviderImpl provider = CityProviderImpl.of(ImmutableSet.copyOf(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
-		assertEquals("MORLUPO", provider.findByBelfiore("XXXX").getName());
+		assertThrows(IllegalArgumentException.class, () -> provider.findByBelfiore("XXXX"));
 	}
 }

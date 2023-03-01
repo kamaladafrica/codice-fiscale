@@ -1,8 +1,8 @@
 package it.kamaladafrica.codicefiscale.internal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -34,16 +34,9 @@ public class ControlPartTest {
 
 	@Test
 	public void testIsEqualStringBadInput() {
-		try {
-			ControlPart.of(CODICE_FISCALE_UNCHECKED).isEqual("5");
-			fail("IllegalArgumentException was expected to be thrown");
-		} catch (IllegalArgumentException e) {
-		}
-		try {
-			ControlPart.of(CODICE_FISCALE_UNCHECKED).isEqual("AA");
-			fail("IllegalArgumentException was expected to be thrown");
-		} catch (IllegalArgumentException e) {
-		}
+		ControlPart part = ControlPart.of(CODICE_FISCALE_UNCHECKED);
+		assertThrows(IllegalArgumentException.class, () -> part.isEqual("5"));
+		assertThrows(IllegalArgumentException.class, () -> part.isEqual("AA"));
 	}
 
 }

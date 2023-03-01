@@ -11,8 +11,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class PartUtils {
 
-	public final static String EMPTY_STRING = "";
-	public final static String PLACEHOLDER = "X";
+	public static final String EMPTY_STRING = "";
+	public static final String PLACEHOLDER = "X";
 
 	public static String normalizeString(String s) {
 		return RegexUtils.extract(RegexUtils.CF_ALLOWED_CHARS, defaultString(s).toUpperCase(CodiceFiscale.LOCALE));

@@ -37,9 +37,9 @@ public final class BelfiorePart extends AbstractPart {
 	}
 
 	public static BelfiorePart from(String value, CityByBelfiore provider) {
-		Validate.notEmpty(value, "invalid value: %s", value);
+		Validate.notEmpty(value);
 		Validate.notNull(provider);
-		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		matchesPattern(value, VALIDATION_PATTERN);
 		Omocode omocodeLevel = Omocode.of(value, OMOCODE_INDEXES);
 		City input = toInput(omocodeLevel.normalize(value), provider);
 		Validate.notNull(input, "belfiore not found");
@@ -53,7 +53,7 @@ public final class BelfiorePart extends AbstractPart {
 	@Override
 	protected String computeValue() {
 		String value = city.getBelfiore();
-		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		matchesPattern(value, VALIDATION_PATTERN);
 		return value;
 	}
 
