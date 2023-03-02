@@ -144,7 +144,7 @@ You can compare two *codice fiscale* even thought they have different omocode le
 
 ```java
 CodiceFiscale cf1 = CodiceFiscale.of("RSSMRA75C22H501I"); // no omocode
-CodiceFiscale cf2 = CodiceFiscale.of("RSSMRA75C22H5LML"); // omocode level 2
+CodiceFiscale cf2 = CodiceFiscale.of("RSSMRA75C22H5LML"); // omocode level 3
 cf1.isEqual(cf2); // returns true (ignore omocode level)
 cf1.isEqual(cf2, false); // return false (compares omocode level)
 
