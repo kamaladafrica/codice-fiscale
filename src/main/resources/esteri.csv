@@ -29,7 +29,7 @@ S;1;Europa;13;Altri paesi europei;241;Svizzera;Switzerland;241;Z133;756;CH;CHE;;
 S;1;Europa;12;Europa centro orientale;243;Ucraina;Ukraine;243;Z138;804;UA;UKR;;
 S;1;Europa;11;Unione europea;244;Ungheria;Hungary;244;Z134;348;HU;HUN;;
 S;1;Europa;12;Europa centro orientale;245;Federazione russa;Russian Federation;245;Z154;643;RU;RUS;;
-S;1;Europa;13;Altri paesi europei;246;Stato della Città del Vaticano;Vatican City State;246;Z106;336;VA;VAT;;
+S;1;Europa;13;Altri paesi europei;246;Stato della CittÃ  del Vaticano;Vatican City State;246;Z106;336;VA;VAT;;
 S;1;Europa;11;Unione europea;247;Estonia;Estonia;247;Z144;233;EE;EST;;
 S;1;Europa;11;Unione europea;248;Lettonia;Latvia;248;Z145;428;LV;LVA;;
 S;1;Europa;11;Unione europea;249;Lituania;Lithuania;249;Z146;440;LT;LTU;;
@@ -95,7 +95,7 @@ S;3;Asia;33;Asia orientale;363;Taiwan;Taiwan;363;Z217;n.d.;TW;TWN;;
 S;3;Asia;32;Asia centro meridionale;364;Turkmenistan;Turkmenistan;364;Z258;795;TM;TKM;;
 S;2;Africa;21;Africa settentrionale;401;Algeria;Algeria;401;Z301;012;DZ;DZA;;
 S;2;Africa;24;Africa centro meridionale;402;Angola;Angola;402;Z302;024;AO;AGO;;
-S;2;Africa;22;Africa occidentale;404;Costa d'Avorio;Côte d'Ivoire;404;Z313;384;CI;CIV;;
+S;2;Africa;22;Africa occidentale;404;Costa d'Avorio;CÃ´te d'Ivoire;404;Z313;384;CI;CIV;;
 S;2;Africa;22;Africa occidentale;406;Benin;Benin;406;Z314;204;BJ;BEN;;
 S;2;Africa;24;Africa centro meridionale;408;Botswana;Botswana;408;Z358;072;BW;BWA;;
 S;2;Africa;22;Africa occidentale;409;Burkina Faso;Burkina Faso;409;Z354;854;BF;BFA;;
@@ -130,7 +130,7 @@ S;2;Africa;24;Africa centro meridionale;441;Namibia;Namibia;441;Z300;516;NA;NAM;
 S;2;Africa;22;Africa occidentale;442;Niger;Niger;442;Z334;562;NE;NER;;
 S;2;Africa;22;Africa occidentale;443;Nigeria;Nigeria;443;Z335;566;NG;NGA;;
 S;2;Africa;23;Africa orientale;446;Ruanda;Rwanda;446;Z338;646;RW;RWA;;
-S;2;Africa;24;Africa centro meridionale;448;Sao Tomé e Principe;Sao Tome and Principe;448;Z341;678;ST;STP;;
+S;2;Africa;24;Africa centro meridionale;448;Sao TomÃ© e Principe;Sao Tome and Principe;448;Z341;678;ST;STP;;
 S;2;Africa;23;Africa orientale;449;Seychelles;Seychelles;449;Z342;690;SC;SYC;;
 S;2;Africa;22;Africa occidentale;450;Senegal;Senegal;450;Z343;686;SN;SEN;;
 S;2;Africa;22;Africa occidentale;451;Sierra Leone;Sierra Leone;451;Z344;694;SL;SLE;;
@@ -177,7 +177,7 @@ S;4;America;42;America centro meridionale;608;Colombia;Colombia;608;Z604;170;CO;
 S;4;America;42;America centro meridionale;609;Ecuador;Ecuador;609;Z605;218;EC;ECU;;
 S;4;America;42;America centro meridionale;612;Guyana;Guyana;612;Z606;328;GY;GUY;;
 S;4;America;42;America centro meridionale;614;Paraguay;Paraguay;614;Z610;600;PY;PRY;;
-S;4;America;42;America centro meridionale;615;Perù;Peru;615;Z611;604;PE;PER;;
+S;4;America;42;America centro meridionale;615;PerÃ¹;Peru;615;Z611;604;PE;PER;;
 S;4;America;42;America centro meridionale;616;Suriname;Suriname;616;Z608;740;SR;SUR;;
 S;4;America;42;America centro meridionale;617;Trinidad e Tobago;Trinidad and Tobago;617;Z612;780;TT;TTO;;
 S;4;America;42;America centro meridionale;618;Uruguay;Uruguay;618;Z613;858;UY;URY;;
@@ -199,14 +199,14 @@ S;5;Oceania;50;Oceania;732;Vanuatu;Vanuatu;732;Z733;548;VU;VUT;;
 T;5;Oceania;50;Oceania;902;Nuova Caledonia;New Caledonia;718;Z716;n.d.;NC;NCL;215;FRA
 T;4;America;42;America centro meridionale;904;Saint-Martin (FR);Saint Martin (FR);542;n.d.;n.d.;MF;MAF;215;FRA
 T;2;Africa;22;Africa settentrionale;905;Sahara occidentale;Western Sahara;n.d.;Z339;n.d.;EH;ESH;436;MAR
-T;4;America;42;America centro meridionale;906;Saint-Barthélemy;Saint Barthelemy;541;n.d.;n.d.;BL;BLM;215;FRA
+T;4;America;42;America centro meridionale;906;Saint-BarthÃ©lemy;Saint Barthelemy;541;n.d.;n.d.;BL;BLM;215;FRA
 T;4;America;41;America settentrionale;908;Bermuda;Bermuda;508;Z400;n.d.;BM;BMU;219;GBR
 T;5;Oceania;50;Oceania;909;Isole Cook (NZ);Cook Islands (NZ);702;Z703;n.d.;CK;COK;719;NZL
 T;1;Europa;13;Altri Paesi europei;910;Gibilterra;Gibraltar;218;Z113;n.d.;GI;GIB;219;GBR
 T;4;America;42;America centro meridionale;911;Isole Cayman;Cayman Islands;511;Z530;n.d.;KY;CYM;219;GBR
 T;4;America;42;America centro meridionale;917;Anguilla;Anguilla;502;Z529;n.d.;AI;AIA;219;GBR
 T;5;Oceania;50;Oceania;920;Polinesia francese;French Polynesia;724;Z723;n.d.;PF;PYF;215;FRA
-T;1;Europa;13;Altri Paesi europei;924;Isole Fær Øer;Faroe Islands;213;Z108;n.d.;FO;FRO;212;DNK
+T;1;Europa;13;Altri Paesi europei;924;Isole FÃ¦r Ã˜er;Faroe Islands;213;Z108;n.d.;FO;FRO;212;DNK
 T;1;Europa;13;Altri Paesi europei;925;Jersey;Jersey;273;n.d.;n.d.;JE;JEY;219;GBR
 T;4;America;42;America centro meridionale;926;Aruba;Aruba;603;Z501;n.d.;AW;ABW;232;NLD
 T;4;America;42;America centro meridionale;928;Sint Maarten (NL);St Maarten (NL);621;n.d.;n.d.;SX;SXM;232;NLD
@@ -216,7 +216,7 @@ T;1;Europa;13;Altri Paesi europei;940;Guernsey;Guernsey;274;n.d.;n.d.;GG;GGY;219
 T;4;America;42;America centro meridionale;958;Isole Falkland (Malvine);Falkland Islands (Malvinas);610;Z609;n.d.;FK;FLK;219;GBR
 T;1;Europa;13;Altri Paesi europei;959;Isola di Man;Isle of Man;228;Z122;n.d.;IM;IMN;219;GBR
 T;4;America;42;America centro meridionale;964;Montserrat;Montserrat;528;Z531;n.d.;MS;MSR;219;GBR
-T;4;America;42;America centro meridionale;966;Curaçao;Curaçao;620;n.d.;n.d.;CW;CUW;232;NLD
+T;4;America;42;America centro meridionale;966;CuraÃ§ao;CuraÃ§ao;620;n.d.;n.d.;CW;CUW;232;NLD
 T;5;Oceania;50;Oceania;972;Isole Pitcairn;Pitcairn;723;Z722;n.d.;PN;PCN;219;GBR
 T;4;America;41;America settentrionale;980;Saint Pierre e Miquelon;Saint Pierre and Miquelon;535;Z403;n.d.;PM;SPM;215;FRA
 T;2;Africa;24;Africa centro meridionale;983;Sant'Elena;Saint Helena;447;Z340;n.d.;SH;SHN;219;GBR
@@ -224,35 +224,3 @@ T;5;Oceania;50;Oceania;988;Terre australi e antartiche francesi;French Southern 
 T;4;America;42;America centro meridionale;992;Isole Turks e Caicos;Turks and Caicos Islands;537;Z519;n.d.;TC;TCA;219;GBR
 T;4;America;42;America centro meridionale;994;Isole Vergini britanniche;British Virgin Islands;539;Z525;n.d.;VG;VGB;219;GBR
 T;5;Oceania;50;Oceania;997;Wallis e Futuna;Wallis and Futuna Islands;734;Z729;n.d.;WF;WLF;215;FRA
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;
