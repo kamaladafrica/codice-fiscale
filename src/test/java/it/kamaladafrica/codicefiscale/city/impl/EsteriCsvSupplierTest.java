@@ -1,5 +1,7 @@
 package it.kamaladafrica.codicefiscale.city.impl;
 
+import static org.junit.Assert.*;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -9,6 +11,8 @@ import org.junit.Test;
 import it.kamaladafrica.codicefiscale.City;
 
 public class EsteriCsvSupplierTest {
+	
+	private static final String ENCODING_ERROR_MARKER = "\uFFFD";
 
 	@Test
 	public void testOf() {
@@ -17,4 +21,12 @@ public class EsteriCsvSupplierTest {
 		Assert.assertFalse(cities.isEmpty());
 	}
 
+	@Test
+	public void testEncoding() {
+		EsteriCsvSupplier.of(getClass().getResource(CityProviderImpl.ESTERI_RESOURCE_PATH)).get().forEach(c -> {
+			assertFalse(c.getBelfiore() + ": belfiore encode error", c.getBelfiore().contains(ENCODING_ERROR_MARKER));
+			assertFalse(c.getName() + ": name encode error", c.getName().contains(ENCODING_ERROR_MARKER));
+			assertFalse(c.getProv() + ": prov encode error", c.getProv().contains(ENCODING_ERROR_MARKER));
+		});
+	}
 }
