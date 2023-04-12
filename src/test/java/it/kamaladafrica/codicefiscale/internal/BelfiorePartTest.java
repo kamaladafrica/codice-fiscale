@@ -9,6 +9,7 @@ import it.kamaladafrica.codicefiscale.City;
 public class BelfiorePartTest {
 
 	private final static City ROMA = City.builder().name("ROMA").prov("RM").belfiore("H501").build();
+	private final static City PERU = City.builder().name("PERÙ").prov("AMERICA").belfiore("Z611").build();
 
 	@Test
 	public void testFromString() {
@@ -17,6 +18,9 @@ public class BelfiorePartTest {
 
 		assertEquals("H50M", BelfiorePart.from("H50M").getValue());
 		assertEquals(ROMA, BelfiorePart.from("H50M").getCity());
+
+		assertEquals("Z611", BelfiorePart.from("Z611").getValue());
+		assertEquals(PERU, BelfiorePart.from("Z611").getCity());
 	}
 
 	@Test

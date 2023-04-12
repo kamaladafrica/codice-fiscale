@@ -23,7 +23,7 @@ import lombok.Getter;
 public final class EsteriCsvSupplier extends CsvSupplier {
 
 	private EsteriCsvSupplier(URL resource) {
-		super(resource, StandardCharsets.UTF_8, buildFormat(), mapper());
+		super(resource, StandardCharsets.ISO_8859_1, buildFormat(), mapper());
 	}
 
 	private static Function<CSVRecord, City> mapper() {
