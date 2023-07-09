@@ -11,6 +11,7 @@ public class PartUtilsTest {
 	@Test
 	public void testNormalizeString() {
 		assertEquals("A14B", PartUtils.normalizeString("A1,.4B"));
+		assertEquals("AAAAEAECCEEEEIIIIOOOOEOEUUUUESZSSSS",PartUtils.normalizeString("àáâäæçčéèêëíìîï óòôöœúùûüšžßẞ"));
 		assertEquals(PartUtils.EMPTY_STRING, PartUtils.normalizeString(null));
 	}
 
