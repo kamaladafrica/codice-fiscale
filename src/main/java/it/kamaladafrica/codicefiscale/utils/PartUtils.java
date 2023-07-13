@@ -12,9 +12,9 @@ import lombok.experimental.UtilityClass;
 public class PartUtils {
 
 	public static final String EMPTY_STRING = "";
-	public static final String PLACEHOLDER = "X";
+	private static final String PLACEHOLDER = "X";
 
-	public static final String[] DIACRITICS = new String[] {
+	private static final String[] DIACRITICS = new String[] {
 			"À", "Á", "Â", "Ä", "Æ",
 			"Ç", "Č",
 			"È", "É", "Ê", "Ë",
@@ -26,7 +26,7 @@ public class PartUtils {
 			"ß", "ẞ"
 	};
 
-	public static final String[] DIACRITICS_TRANSLITERATION = new String[] { //
+	private static final String[] DIACRITICS_TRANSLITERATION = new String[] { //
 			"A", "A", "A", "AE", "AE",
 			"C", "C",
 			"E", "E", "E", "E",

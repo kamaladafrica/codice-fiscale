@@ -6,6 +6,7 @@ import static java.util.function.Function.identity;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -17,7 +18,6 @@ import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 import org.apache.commons.text.similarity.SimilarityScoreFrom;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
@@ -31,8 +31,8 @@ public final class CityProviderImpl implements CityProvider {
 	static final String ITALIA_RESOURCE_PATH = "/italia.csv";
 	static final String ESTERI_RESOURCE_PATH = "/esteri.csv";
 
-	private final ImmutableMap<String, City> cityByName;
-	private final ImmutableMap<String, City> cityByBelfiore;
+	private final Map<String, City> cityByName;
+	private final Map<String, City> cityByBelfiore;
 
 	private final double minimumMatchScore;
 

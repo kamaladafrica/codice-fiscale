@@ -77,7 +77,7 @@ public final class CodiceFiscale {
 	}
 
 	public boolean isEqual(String other) {
-		return isEqual(CodiceFiscale.of(other));
+		return isEqual(of(other));
 	}
 
 	public boolean isEqual(CodiceFiscale other) {
@@ -85,7 +85,7 @@ public final class CodiceFiscale {
 	}
 
 	public boolean isEqual(String other, boolean ignoreOmocode) {
-		return isEqual(CodiceFiscale.of(other), ignoreOmocode);
+		return isEqual(of(other), ignoreOmocode);
 	}
 
 	public boolean isEqual(CodiceFiscale other, boolean ignoreOmocode) {
@@ -111,7 +111,7 @@ public final class CodiceFiscale {
 	}
 
 	public boolean isCompatible(Person person) {
-		return isEqual(CodiceFiscale.of(person));
+		return isEqual(of(person));
 	}
 
 	private String computeValue() {
@@ -168,7 +168,7 @@ public final class CodiceFiscale {
 	}
 
 	public static boolean isCompatible(String code, Person person) {
-		return CodiceFiscale.of(code).isCompatible(person);
+		return of(code).isCompatible(person);
 	}
 
 	public static boolean isFormatValid(String value) {

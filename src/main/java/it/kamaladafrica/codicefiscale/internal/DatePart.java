@@ -27,7 +27,7 @@ public final class DatePart extends AbstractPart {
 	private static final String DATE_PART_FORMAT = "%02d%s%02d";
 	private static final String MONTHS_CHARS = "ABCDEHLMPRST";
 	private static final int FEMAIL_DAY_OFFSET = 40;
-	private static final int MILLENNIUM = (LocalDate.now().getYear() / 1000) * 1000;
+	private static final int MILLENNIUM = Math.floorDiv(LocalDate.now().getYear(), 1000) * 1000;
 
 	LocalDate date;
 	boolean female;
@@ -103,5 +103,4 @@ public final class DatePart extends AbstractPart {
 		LocalDate date;
 		boolean female;
 	}
-
 }
