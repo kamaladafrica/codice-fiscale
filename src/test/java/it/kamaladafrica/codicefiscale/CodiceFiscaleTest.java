@@ -122,13 +122,28 @@ public class CodiceFiscaleTest {
 		assertEquals(CODICE_FISCALE_2, CodiceFiscale.of(PERSON).toOmocodeLevel(3).getValue());
 		assertEquals(CODICE_FISCALE_2, CodiceFiscale.of(CODICE_FISCALE).toOmocodeLevel(3).getValue());
 	}
-	
+
 	@Test
 	public void testIsOmocode() {
 		assertFalse(CodiceFiscale.of(CODICE_FISCALE).isOmocode());
 		assertTrue(CodiceFiscale.of(CODICE_FISCALE_2).isOmocode());
 		assertFalse(CodiceFiscale.of(PERSON).isOmocode());
 		assertTrue(CodiceFiscale.of(PERSON).toOmocodeLevel(7).isOmocode());
+	}
+
+	@Test
+	public void testDiacritics() {
+		Person fo1 = Person.builder().firstname("Dario").lastname("FæO").birthDate(LocalDate.of(1975, 3, 22))
+				.isFemale(false).city(City.builder().name("ROMA").prov("RM").belfiore("H501").build()).build();
+		Person fo2 = Person.builder().firstname("Dario").lastname("FæO'").birthDate(LocalDate.of(1975, 3, 22))
+				.isFemale(false).city(City.builder().name("ROMA").prov("RM").belfiore("H501").build()).build();
+		Person fo3 = Person.builder().firstname("Dario").lastname("FAEO").birthDate(LocalDate.of(1975, 3, 22))
+				.isFemale(false).city(City.builder().name("ROMA").prov("RM").belfiore("H501").build()).build();
+		
+		System.out.println(CodiceFiscale.of(fo1).getValue());
+		
+		assertEquals(CodiceFiscale.of(fo1).getValue(),CodiceFiscale.of(fo2).getValue());
+		assertEquals(CodiceFiscale.of(fo2).getValue(),CodiceFiscale.of(fo3).getValue());
 	}
 
 }
