@@ -133,17 +133,13 @@ public class CodiceFiscaleTest {
 
 	@Test
 	public void testDiacritics() {
-		Person fo1 = Person.builder().firstname("Dario").lastname("FæO").birthDate(LocalDate.of(1975, 3, 22))
+		Person p1 = Person.builder().firstname("RENEŽ").lastname("FæO").birthDate(LocalDate.of(1975, 3, 22))
 				.isFemale(false).city(City.builder().name("ROMA").prov("RM").belfiore("H501").build()).build();
-		Person fo2 = Person.builder().firstname("Dario").lastname("FæO'").birthDate(LocalDate.of(1975, 3, 22))
+		Person p2 = Person.builder().firstname("RENEZ").lastname("FAEO").birthDate(LocalDate.of(1975, 3, 22))
 				.isFemale(false).city(City.builder().name("ROMA").prov("RM").belfiore("H501").build()).build();
-		Person fo3 = Person.builder().firstname("Dario").lastname("FAEO").birthDate(LocalDate.of(1975, 3, 22))
-				.isFemale(false).city(City.builder().name("ROMA").prov("RM").belfiore("H501").build()).build();
-		
-		System.out.println(CodiceFiscale.of(fo1).getValue());
-		
-		assertEquals(CodiceFiscale.of(fo1).getValue(),CodiceFiscale.of(fo2).getValue());
-		assertEquals(CodiceFiscale.of(fo2).getValue(),CodiceFiscale.of(fo3).getValue());
+
+		assertEquals(CodiceFiscale.of(p1).getValue(), CodiceFiscale.of(p2).getValue());
+		assertEquals("FAERNZ75C22H501I", CodiceFiscale.of(p1).getValue());
 	}
 
 }
