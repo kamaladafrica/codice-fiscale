@@ -224,3 +224,9 @@ T;5;Oceania;50;Oceania;988;Terre australi e antartiche francesi;French Southern 
 T;4;America;42;America centro meridionale;992;Isole Turks e Caicos;Turks and Caicos Islands;537;Z519;n.d.;TC;TCA;219;GBR
 T;4;America;42;America centro meridionale;994;Isole Vergini britanniche;British Virgin Islands;539;Z525;n.d.;VG;VGB;219;GBR
 T;5;Oceania;50;Oceania;997;Wallis e Futuna;Wallis and Futuna Islands;734;Z729;n.d.;WF;WLF;215;FRA
+S;3;Asia;;;825;Yemen del Sud;South Yemen;;Z250;;YD;YMD;;
+S;1;Europa;;;805;Repubblica Democratica Tedesca;German Democratic Republic;;Z111;;DD;DDR;;
+S;1;Europa;;;802;Unione Sovietica;Union of Soviet Socialist Republics;;Z135;;SU;SUN;;
+S;1;Europa;;;801;Cecoslovacchia;Czechoslovakia;;Z105;;n.d;CSK;;
+S;1;Europa;;;820;Repubblica Socialista Federale di Jugoslavia;Socialist Federal Republic of Yugoslavia;;Z118;;YU;YUG;;
+S;1;Europa;;;224;Serbia e Montenegro;Serbia and Montenegro;;Z157;;n.d;SCG;;
