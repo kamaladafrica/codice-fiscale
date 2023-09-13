@@ -7,8 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.google.common.primitives.ImmutableIntArray;
-
 public class OmocodeTest {
 
 	@Test

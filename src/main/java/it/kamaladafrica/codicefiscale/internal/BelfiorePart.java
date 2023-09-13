@@ -4,8 +4,6 @@ import static org.apache.commons.lang3.Validate.matchesPattern;
 
 import org.apache.commons.lang3.Validate;
 
-import com.google.common.primitives.ImmutableIntArray;
-
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.city.CityByBelfiore;
 import it.kamaladafrica.codicefiscale.city.CityProvider;

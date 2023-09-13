@@ -1,9 +1,8 @@
 package it.kamaladafrica.codicefiscale.city.impl;
 
-import static com.google.common.base.Strings.nullToEmpty;
-import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static java.util.function.Function.identity;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,6 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 import org.apache.commons.text.similarity.SimilarityScoreFrom;
-
-import com.google.common.collect.ImmutableList;
 
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
@@ -39,8 +36,10 @@ public final class CityProviderImpl implements CityProvider {
 
 	private CityProviderImpl(Set<City> cities, double minimumMatchScore) {
 		this.minimumMatchScore = minimumMatchScore;
-		this.cityByName = cities.stream().collect(toImmutableMap(CityProviderImpl::cityName, identity()));
-		this.cityByBelfiore = cities.stream().collect(toImmutableMap(City::getBelfiore, identity()));
+		this.cityByName = Collections
+				.unmodifiableMap(cities.stream().collect(Collectors.toMap(CityProviderImpl::cityName, identity())));
+		this.cityByBelfiore = Collections
+				.unmodifiableMap(cities.stream().collect(Collectors.toMap(City::getBelfiore, identity())));
 	}
 
 	private static String cityName(City city) {
@@ -48,12 +47,16 @@ public final class CityProviderImpl implements CityProvider {
 	}
 
 	private static String normalize(String s) {
-		return nullToEmpty(s).toUpperCase(CodiceFiscale.LOCALE);
+		if (s == null || s.isEmpty()) {
+			return "";
+		}
+		return s.toUpperCase(CodiceFiscale.LOCALE);
 	}
 
 	@Override
 	public List<City> findAll() {
-		return ImmutableList.sortedCopyOf((a, b) -> a.getName().compareTo(b.getName()), cityByName.values());
+		return Collections.unmodifiableList(
+				cityByName.values().stream().sorted(Comparator.comparing(City::getName)).collect(Collectors.toList()));
 	}
 
 	@Override
