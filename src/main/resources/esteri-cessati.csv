@@ -1,0 +1,7 @@
+Stato(S)/Territorio(T);Codice Continente;Denominazione Continente (IT);Codice Area;Denominazione Area (IT);Codice ISTAT;Denominazione IT;Denominazione EN;Codice MIN;Codice AT;Codice UNSD_M49;Codice ISO 3166 alpha2;Codice ISO 3166 alpha3;Codice ISTAT_Stato Padre;Codice ISO alpha3_Stato Padre
+S;3;Asia;;;825;Yemen del Sud;South Yemen;;Z250;;YD;YMD;;
+S;1;Europa;;;805;Repubblica Democratica Tedesca;German Democratic Republic;;Z111;;DD;DDR;;
+S;1;Europa;;;802;Unione Sovietica;Union of Soviet Socialist Republics;;Z135;;SU;SUN;;
+S;1;Europa;;;801;Cecoslovacchia;Czechoslovakia;;Z105;;n.d;CSK;;
+S;1;Europa;;;820;Repubblica Socialista Federale di Jugoslavia;Socialist Federal Republic of Yugoslavia;;Z118;;YU;YUG;;
+S;1;Europa;;;224;Serbia e Montenegro;Serbia and Montenegro;;Z157;;n.d;SCG;;

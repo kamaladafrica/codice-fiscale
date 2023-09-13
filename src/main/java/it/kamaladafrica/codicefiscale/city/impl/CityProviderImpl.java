@@ -25,93 +25,99 @@ import it.kamaladafrica.codicefiscale.city.CityProvider;
 
 public final class CityProviderImpl implements CityProvider {
 
-	public static final double DEFAULT_MINIMUM_MATCH_SCORE = 0.8;
-	public static final double EXACT_MATCH_SCORE = 1.0;
+    public static final double DEFAULT_MINIMUM_MATCH_SCORE = 0.8;
+    public static final double EXACT_MATCH_SCORE = 1.0;
 
-	static final String ITALIA_RESOURCE_PATH = "/italia.csv";
-	static final String ESTERI_RESOURCE_PATH = "/esteri.csv";
+    static final String ITALIA_RESOURCE_PATH = "/italia.csv";
+    static final String ESTERI_RESOURCE_PATH = "/esteri.csv";
+    static final String ESTERI_CESSATI_RESOURCE_PATH = "/esteri-cessati.csv";
 
-	private final Map<String, City> cityByName;
-	private final Map<String, City> cityByBelfiore;
+    private final Map<String, City> cityByName;
+    private final Map<String, City> cityByBelfiore;
 
-	private final double minimumMatchScore;
+    private final double minimumMatchScore;
 
-	private CityProviderImpl(Set<City> cities, double minimumMatchScore) {
-		this.minimumMatchScore = minimumMatchScore;
-		this.cityByName = cities.stream().collect(toImmutableMap(CityProviderImpl::cityName, identity()));
-		this.cityByBelfiore = cities.stream().collect(toImmutableMap(City::getBelfiore, identity()));
-	}
+    private CityProviderImpl(Set<City> cities, double minimumMatchScore) {
+        this.minimumMatchScore = minimumMatchScore;
+        this.cityByName = cities.stream().collect(toImmutableMap(CityProviderImpl::cityName, identity()));
+        this.cityByBelfiore = cities.stream().collect(toImmutableMap(City::getBelfiore, identity()));
+    }
 
-	private static String cityName(City city) {
-		return String.format("%s(%s)", city.getName(), city.getProv());
-	}
+    private static String cityName(City city) {
+        return String.format("%s(%s)", city.getName(), city.getProv());
+    }
 
-	private static String normalize(String s) {
-		return nullToEmpty(s).toUpperCase(CodiceFiscale.LOCALE);
-	}
+    private static String normalize(String s) {
+        return nullToEmpty(s).toUpperCase(CodiceFiscale.LOCALE);
+    }
 
-	@Override
-	public List<City> findAll() {
-		return ImmutableList.sortedCopyOf((a, b) -> a.getName().compareTo(b.getName()), cityByName.values());
-	}
+    @Override
+    public List<City> findAll() {
+        return ImmutableList.sortedCopyOf((a, b) -> a.getName().compareTo(b.getName()), cityByName.values());
+    }
 
-	@Override
-	public City findByName(String name) {
-		City result = null;
-		final String term = normalize(name);
-		if (!term.isEmpty()) {
+    @Override
+    public City findByName(String name) {
+        City result = null;
+        final String term = normalize(name);
+        if (!term.isEmpty()) {
 
-			result = cityByName.get(term);
-			if (minimumMatchScore != EXACT_MATCH_SCORE && result == null) {
-				final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(new JaroWinklerSimilarity(), term);
-				result = cityByName.entrySet().stream().map(e -> Pair.of(e.getValue(), score.apply(e.getKey())))
-						.filter(e -> e.getValue() >= minimumMatchScore).max(Comparator.comparing(Entry::getValue))
-						.map(Entry::getKey).orElse(null);
-			}
-		}
+            result = cityByName.get(term);
+            if (minimumMatchScore != EXACT_MATCH_SCORE && result == null) {
+                final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(new JaroWinklerSimilarity(), term);
+                result = cityByName.entrySet().stream().map(e -> Pair.of(e.getValue(), score.apply(e.getKey())))
+                        .filter(e -> e.getValue() >= minimumMatchScore).max(Comparator.comparing(Entry::getValue))
+                        .map(Entry::getKey).orElse(null);
+            }
+        }
 
-		if (result == null) {
-			throw new IllegalArgumentException("not found: " + term);
-		}
-		return result;
-	}
+        if (result == null) {
+            throw new IllegalArgumentException("not found: " + term);
+        }
+        return result;
+    }
 
-	@Override
-	public City findByBelfiore(String belfiore) {
-		final String term = normalize(belfiore);
-		City result = cityByBelfiore.get(term);
-		if (result == null) {
-			throw new IllegalArgumentException("not found: " + term);
-		}
-		return result;
-	}
+    @Override
+    public City findByBelfiore(String belfiore) {
+        final String term = normalize(belfiore);
+        City result = cityByBelfiore.get(term);
+        if (result == null) {
+            throw new IllegalArgumentException("not found: " + term);
+        }
+        return result;
+    }
 
-	public static CityProviderImpl ofDefault() {
-		return of(defaultSupplier(), DEFAULT_MINIMUM_MATCH_SCORE);
-	}
+    public static CityProviderImpl ofDefault() {
+        return of(defaultSupplier(), DEFAULT_MINIMUM_MATCH_SCORE);
+    }
 
-	public static CityProviderImpl of(Supplier<Set<City>> supplier, double minimumMatchScore) {
-		return of(supplier.get(), minimumMatchScore);
-	}
+    public static CityProviderImpl of(Supplier<Set<City>> supplier, double minimumMatchScore) {
+        return of(supplier.get(), minimumMatchScore);
+    }
 
-	public static CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
-		return new CityProviderImpl(cities, minimumMatchScore);
-	}
+    public static CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
+        return new CityProviderImpl(cities, minimumMatchScore);
+    }
 
-	public static CityProviderImpl of(Supplier<Set<City>> supplier) {
-		return of(supplier.get(), DEFAULT_MINIMUM_MATCH_SCORE);
-	}
+    public static CityProviderImpl of(Supplier<Set<City>> supplier) {
+        return of(supplier.get(), DEFAULT_MINIMUM_MATCH_SCORE);
+    }
 
-	public static CityProviderImpl of(Set<City> cities) {
-		return of(cities, DEFAULT_MINIMUM_MATCH_SCORE);
-	}
+    public static CityProviderImpl of(Set<City> cities) {
+        return of(cities, DEFAULT_MINIMUM_MATCH_SCORE);
+    }
 
-	private static Supplier<Set<City>> defaultSupplier() {
-		return () -> Stream
-				.concat(ItaliaCsvSupplier.of(CityProviderImpl.class.getResource(ITALIA_RESOURCE_PATH)).get(),
-						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)).get())
-				.collect(Collectors.toSet());
+    private static Supplier<Set<City>> defaultSupplier() {
+        return () -> Stream
+                .of(
+                        ItaliaCsvSupplier.of(CityProviderImpl.class.getResource(ITALIA_RESOURCE_PATH)).get(),
+                        EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)).get(),
+                        EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_CESSATI_RESOURCE_PATH)).get()
+                )
+                .reduce(Stream::concat)
+                .orElseGet(Stream::empty)
+                .collect(Collectors.toSet());
 
-	}
+    }
 
 }
