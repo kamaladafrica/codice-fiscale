@@ -45,5 +45,6 @@ Nella sezione `<profiles>` deve essere presente il profilo `ossrh` che contiene 
 $ mvn -Prelease release:prepare
 $ git push --tags
 $ mvn -Prelease release:perform
+$ git push
 ```
 
