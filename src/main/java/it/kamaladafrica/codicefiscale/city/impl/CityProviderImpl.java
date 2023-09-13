@@ -30,6 +30,7 @@ public final class CityProviderImpl implements CityProvider {
 
 	static final String ITALIA_RESOURCE_PATH = "/italia.csv";
 	static final String ESTERI_RESOURCE_PATH = "/esteri.csv";
+    static final String ESTERI_CESSATI_RESOURCE_PATH = "/esteri-cessati.csv";
 
 	private final Map<String, City> cityByName;
 	private final Map<String, City> cityByBelfiore;
@@ -108,10 +109,10 @@ public final class CityProviderImpl implements CityProvider {
 
 	private static Supplier<Set<City>> defaultSupplier() {
 		return () -> Stream
-				.concat(ItaliaCsvSupplier.of(CityProviderImpl.class.getResource(ITALIA_RESOURCE_PATH)).get(),
-						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)).get())
-				.collect(Collectors.toSet());
-
+				.of(ItaliaCsvSupplier.of(CityProviderImpl.class.getResource(ITALIA_RESOURCE_PATH)).get(),
+						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)).get(),
+						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_CESSATI_RESOURCE_PATH)).get())
+				.flatMap(identity()).collect(Collectors.toSet());
 	}
 
 }
