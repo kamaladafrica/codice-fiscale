@@ -4,7 +4,7 @@
 
 	<groupId>it.kamaladafrica</groupId>
 	<artifactId>codice-fiscale</artifactId>
-	<version>1.5.1</version>
+	<version>1.5.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>${project.groupId}:${project.artifactId}</name>
@@ -36,7 +36,7 @@
 		<connection>scm:git:https://github.com/kamaladafrica/codice-fiscale.git</connection>
 		<developerConnection>scm:git:https://github.com/kamaladafrica/codice-fiscale.git</developerConnection>
 		<url>https://github.com/kamaladafrica/codice-fiscale/tree/master</url>
-	  <tag>v1.5.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<developers>
