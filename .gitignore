@@ -2,6 +2,7 @@
 .project
 .settings/
 .factorypath
+.envrc
 
 target/
 
