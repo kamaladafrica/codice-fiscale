@@ -155,14 +155,7 @@ public final class CodiceFiscale {
 		final int level = (date.getOmocodeLevel().getLevel() << OMOCODE_LEVEL_DATE_OFFSET)
 				| (belfiore.getOmocodeLevel().getLevel() << OMOCODE_LEVEL_BELFIORE_OFFSET);
 
-		final CodiceFiscale result = new CodiceFiscale(person, lastname, firstname, date, belfiore, level);
-
-		if (!Objects.equals(result.getValue(), value)) {
-			throw new IllegalArgumentException(String.format("expected %s, but found %s", value, result.getValue()));
-		}
-
-		return result;
-
+		return new CodiceFiscale(person, lastname, firstname, date, belfiore, level);
 	}
 
 	public static boolean isCompatible(String code, Person person) {
