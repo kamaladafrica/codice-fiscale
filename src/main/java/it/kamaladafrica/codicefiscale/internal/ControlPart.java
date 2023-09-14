@@ -1,8 +1,7 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.matchesPattern;
-
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
+import it.kamaladafrica.codicefiscale.utils.Validate;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class ControlPart extends AbstractPart {
 	String code;
 
 	public static ControlPart of(String value) {
-		matchesPattern(value, VALIDATION_INPUT_PATTERN, "invalid value: %s", value);
+		Validate.matchesPattern(value, VALIDATION_INPUT_PATTERN, "invalid value: %s", value);
 		return new ControlPart(value);
 	}
 
@@ -48,7 +47,7 @@ public class ControlPart extends AbstractPart {
 
 		int controlCharIndex = (even + odd) % 26;
 		String value = String.valueOf((char) (CHAR_A + controlCharIndex));
-		matchesPattern(value, VALIDATION_RESULT_PATTERN, "unexpected result: %s", value);
+		Validate.matchesPattern(value, VALIDATION_RESULT_PATTERN, "unexpected result: %s", value);
 		return value;
 	}
 
@@ -71,13 +70,13 @@ public class ControlPart extends AbstractPart {
 	}
 
 	public boolean isEqual(String controlChar) {
-		matchesPattern(controlChar, VALIDATION_RESULT_PATTERN, "unexpected input: %s", controlChar);
+		Validate.matchesPattern(controlChar, VALIDATION_RESULT_PATTERN, "unexpected input: %s", controlChar);
 		return getValue().equals(controlChar);
 	}
 
 	@Override
 	protected void validateValue(String value) {
-		matchesPattern(value, VALIDATION_RESULT_PATTERN, "unexpected result: %s", value);
+		Validate.matchesPattern(value, VALIDATION_RESULT_PATTERN, "unexpected result: %s", value);
 	}
 
 }

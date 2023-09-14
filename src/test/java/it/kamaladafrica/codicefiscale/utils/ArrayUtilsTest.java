@@ -17,7 +17,7 @@ public class ArrayUtilsTest {
 	public void testImmutableSet() {
 		Collection<String> collection = Arrays.asList("B", "A", "C");
 
-		Set<String> set = CollectionUtils.unmodifiableSet(collection);
+		Set<String> set = TestUtils.unmodifiableSet(collection);
 
 		assertNotSame(collection, set);
 		assertEquals(3, set.size());

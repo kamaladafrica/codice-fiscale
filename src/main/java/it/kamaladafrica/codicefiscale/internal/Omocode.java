@@ -1,7 +1,6 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
-
+import it.kamaladafrica.codicefiscale.utils.Validate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Value;
@@ -20,7 +19,7 @@ public class Omocode {
 	ImmutableIntArray omocodeIndices;
 
 	private Omocode(int level, int mask, ImmutableIntArray omocodeIndices) {
-		inclusiveBetween(0, mask, level, "invalid omocode level: 0 <= %s <= %s", level, mask);
+		Validate.inclusiveBetween(0, mask, level, "invalid omocode level: 0 <= %s <= %s", level, mask);
 		this.level = level;
 		this.mask = mask;
 		this.omocodeIndices = omocodeIndices;
