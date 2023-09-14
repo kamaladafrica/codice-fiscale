@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -15,8 +16,8 @@ import java.util.stream.Stream;
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
-import it.kamaladafrica.codicefiscale.city.algo.JaroWinklerSimilarity;
-import it.kamaladafrica.codicefiscale.city.algo.SimilarityScoreFrom;
+import it.kamaladafrica.codicefiscale.city.algo.JaroWinklerAlgoritm;
+import it.kamaladafrica.codicefiscale.city.algo.ScoreAlgoritm;
 import it.kamaladafrica.codicefiscale.utils.Pair;
 
 public final class CityProviderImpl implements CityProvider {
@@ -26,14 +27,16 @@ public final class CityProviderImpl implements CityProvider {
 
 	static final String ITALIA_RESOURCE_PATH = "italia.csv";
 	static final String ESTERI_RESOURCE_PATH = "esteri.csv";
-    static final String ESTERI_CESSATI_RESOURCE_PATH = "esteri-cessati.csv";
+	static final String ESTERI_CESSATI_RESOURCE_PATH = "esteri-cessati.csv";
 
 	private final Map<String, City> cityByName;
 	private final Map<String, City> cityByBelfiore;
 
+	private final ScoreAlgoritm<Double> scoreAlgoritm;
 	private final double minimumMatchScore;
 
-	private CityProviderImpl(Set<City> cities, double minimumMatchScore) {
+	private CityProviderImpl(Set<City> cities, ScoreAlgoritm<Double> scoreAlgoritm, double minimumMatchScore) {
+		this.scoreAlgoritm = Objects.requireNonNull(scoreAlgoritm);
 		this.minimumMatchScore = minimumMatchScore;
 		this.cityByName = Collections
 				.unmodifiableMap(cities.stream().collect(Collectors.toMap(CityProviderImpl::cityName, identity())));
@@ -55,7 +58,9 @@ public final class CityProviderImpl implements CityProvider {
 	@Override
 	public List<City> findAll() {
 		return Collections.unmodifiableList(
-				cityByName.values().stream().sorted(Comparator.comparing(City::getName)).collect(Collectors.toList()));
+				cityByName.values().stream()
+				.sorted(Comparator.comparing(City::getName))
+				.collect(Collectors.toList()));
 	}
 
 	@Override
@@ -66,10 +71,12 @@ public final class CityProviderImpl implements CityProvider {
 
 			result = cityByName.get(term);
 			if (minimumMatchScore != EXACT_MATCH_SCORE && result == null) {
-				final SimilarityScoreFrom<Double> score = new SimilarityScoreFrom<>(new JaroWinklerSimilarity(), term);
-				result = cityByName.entrySet().stream().map(e -> Pair.of(e.getValue(), score.apply(e.getKey())))
-						.filter(e -> e.getValue() >= minimumMatchScore).max(Comparator.comparing(Entry::getValue))
-						.map(Entry::getKey).orElse(null);
+				result = cityByName.entrySet().stream()
+						.map(e -> Pair.of(e.getValue(), scoreAlgoritm.apply(term, e.getKey())))
+						.filter(e -> e.getValue() >= minimumMatchScore)
+						.max(Comparator.comparing(Entry::getValue))
+						.map(Entry::getKey)
+						.orElse(null);
 			}
 		}
 
@@ -98,7 +105,11 @@ public final class CityProviderImpl implements CityProvider {
 	}
 
 	public static CityProviderImpl of(Set<City> cities, double minimumMatchScore) {
-		return new CityProviderImpl(cities, minimumMatchScore);
+		return of(cities, new JaroWinklerAlgoritm(), minimumMatchScore);
+	}
+
+	public static CityProviderImpl of(Set<City> cities, ScoreAlgoritm<Double> scoreAlgoritm, double minimumMatchScore) {
+		return new CityProviderImpl(cities, scoreAlgoritm, minimumMatchScore);
 	}
 
 	public static CityProviderImpl of(Supplier<Set<City>> supplier) {

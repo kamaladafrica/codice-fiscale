@@ -33,7 +33,7 @@ package it.kamaladafrica.codicefiscale.city.algo;
  * @param <R> The type of similarity score unit used by this EditDistance.
  * @since 1.0
  */
-public interface SimilarityScore<R> {
+public interface ScoreAlgoritm<R> {
 
 	/**
 	 * Compares two CharSequences.

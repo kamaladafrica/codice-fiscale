@@ -26,7 +26,7 @@ import it.kamaladafrica.codicefiscale.utils.StringUtils;
  *
  * @since 1.7
  */
-public class JaroWinklerSimilarity implements SimilarityScore<Double> {
+public class JaroWinklerAlgoritm implements ScoreAlgoritm<Double> {
 
 	/**
 	 * This method returns the Jaro-Winkler string matches, half transpositions,
