@@ -12,13 +12,12 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.text.similarity.JaroWinklerSimilarity;
-import org.apache.commons.text.similarity.SimilarityScoreFrom;
-
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
+import it.kamaladafrica.codicefiscale.city.algo.JaroWinklerSimilarity;
+import it.kamaladafrica.codicefiscale.city.algo.SimilarityScoreFrom;
+import it.kamaladafrica.codicefiscale.utils.Pair;
 
 public final class CityProviderImpl implements CityProvider {
 

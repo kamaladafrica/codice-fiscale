@@ -18,7 +18,7 @@ import org.junit.Assume;
 import org.junit.Test;
 
 import it.kamaladafrica.codicefiscale.City;
-import it.kamaladafrica.codicefiscale.utils.CollectionUtils;
+import it.kamaladafrica.codicefiscale.utils.TestUtils;
 
 public class CityProviderImplTest {
 
@@ -33,7 +33,7 @@ public class CityProviderImplTest {
 
 	@Test
 	public void testOfSet() {
-		final Set<City> source = CollectionUtils.unmodifiableSet(CITIES.values());
+		final Set<City> source = TestUtils.unmodifiableSet(CITIES.values());
 		Assume.assumeThat(source.iterator().next(), is(CITIES.get("ZAGAROLO(RM)")));
 
 		final CityProviderImpl provider = CityProviderImpl.of(source);
@@ -46,7 +46,7 @@ public class CityProviderImplTest {
 
 	@Test
 	public void testOfSupplier() {
-		final Set<City> source = CollectionUtils.unmodifiableSet(CITIES.values());
+		final Set<City> source = TestUtils.unmodifiableSet(CITIES.values());
 		Assume.assumeThat(source.iterator().next(), is(CITIES.get("ZAGAROLO(RM)")));
 
 		final CityProviderImpl provider = CityProviderImpl.of(() -> source);
@@ -59,7 +59,7 @@ public class CityProviderImplTest {
 
 	@Test
 	public void testOfSetScore() {
-		final Set<City> source = CollectionUtils.unmodifiableSet(CITIES.values());
+		final Set<City> source = TestUtils.unmodifiableSet(CITIES.values());
 		Assume.assumeThat(source.iterator().next(), is(CITIES.get("ZAGAROLO(RM)")));
 
 		final CityProviderImpl provider = CityProviderImpl.of(source, CityProviderImpl.EXACT_MATCH_SCORE);
@@ -76,7 +76,7 @@ public class CityProviderImplTest {
 
 	@Test
 	public void testOfSupplierScore() {
-		final Set<City> source = CollectionUtils.unmodifiableSet(CITIES.values());
+		final Set<City> source = TestUtils.unmodifiableSet(CITIES.values());
 		Assume.assumeThat(source.iterator().next(), is(CITIES.get("ZAGAROLO(RM)")));
 
 		final CityProviderImpl provider = CityProviderImpl.of(() -> source, CityProviderImpl.EXACT_MATCH_SCORE);
@@ -110,7 +110,7 @@ public class CityProviderImplTest {
 
 	@Test
 	public void testFindAll() {
-		final CityProviderImpl provider = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl provider = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		final List<City> cities = provider.findAll();
 		assertEquals(CITIES.size(), cities.size());
@@ -119,14 +119,14 @@ public class CityProviderImplTest {
 
 	@Test
 	public void testFindByNameExact() {
-		final CityProviderImpl providerExact = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl providerExact = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		assertEquals("MORLUPO", providerExact.findByName("MORLUPO(RM)").getName());
 	}
 
 	@Test
 	public void testFindByNameNotExact() {
-		final CityProviderImpl providerNotExact = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl providerNotExact = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.DEFAULT_MINIMUM_MATCH_SCORE);
 		assertEquals("MORLUPO", providerNotExact.findByName("MORLUPO(RM)").getName());
 		assertEquals("MORLUPO", providerNotExact.findByName("MORLUPO (RM)").getName());
@@ -138,35 +138,35 @@ public class CityProviderImplTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindByNameExactNotFound() {
-		final CityProviderImpl providerExact = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl providerExact = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		providerExact.findByName("MORLOPE");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindByNameEmptyTerm() {
-		final CityProviderImpl provider = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl provider = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		provider.findByName(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindByNameNotExactNotFound() {
-		final CityProviderImpl providerExact = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl providerExact = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.DEFAULT_MINIMUM_MATCH_SCORE);
 		providerExact.findByName("XXXX");
 	}
 
 	@Test
 	public void testFindByBelfiore() {
-		final CityProviderImpl provider = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl provider = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		assertEquals("MORLUPO", provider.findByBelfiore("B456").getName());
 	}
 
 	@Test
 	public void testFindByBelfioreNotFound() {
-		final CityProviderImpl provider = CityProviderImpl.of(CollectionUtils.unmodifiableSet(CITIES.values()),
+		final CityProviderImpl provider = CityProviderImpl.of(TestUtils.unmodifiableSet(CITIES.values()),
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		assertThrows(IllegalArgumentException.class, () -> provider.findByBelfiore("XXXX"));
 	}
