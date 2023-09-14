@@ -2,6 +2,7 @@ package it.kamaladafrica.codicefiscale.internal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
@@ -12,6 +13,7 @@ public class OmocodeTest {
 	@Test
 	public void test_of() {
 		assertTrue(Omocode.of(new int[0]).isSameLevel(Omocode.of(ImmutableIntArray.of())));
+		assertEquals(1, Omocode.of("AAAN", ImmutableIntArray.of(3)).getLevel());
 	}
 
 	@Test
@@ -20,6 +22,8 @@ public class OmocodeTest {
 		for (int i = 0; i < 7; i++) {
 			assertEquals(res[i], Omocode.of(i + 1, new int[] { 1, 2, 4 }).apply("X00X0"));
 		}
+		String value = new String("AAAA");
+		assertSame(value, Omocode.of(0, new int[] { 1, 2, 4 }).apply(value));
 	}
 
 	@Test
@@ -59,8 +63,15 @@ public class OmocodeTest {
 	public void test_isSameLevel() {
 		assertTrue(Omocode.of(0, new int[0]).isSameLevel(Omocode.of(0, new int[0])));
 		assertTrue(Omocode.of(1, new int[1]).isSameLevel(Omocode.of(1, new int[1])));
+		assertTrue(Omocode.of(0, new int[] {1}).isSameLevel(Omocode.of(0, new int[] {1})));
+		assertTrue(Omocode.of(1, new int[] {1}).isSameLevel(Omocode.of(1, new int[] {1})));
+		assertFalse(Omocode.of(0, new int[1]).isSameLevel(Omocode.of(0, new int[2])));
+		assertFalse(Omocode.of(1, new int[1]).isSameLevel(Omocode.of(0, new int[1])));
+
 		assertFalse(Omocode.of(1, new int[1]).isSameLevel(Omocode.of(1, new int[2])));
 		assertFalse(Omocode.of(1, new int[] { 1 }).isSameLevel(Omocode.of(1, new int[] { 2 })));
+		assertFalse(Omocode.of(0, new int[1]).isSameLevel(Omocode.of(1, new int[2])));
+		assertFalse(Omocode.of(0, new int[] { 1 }).isSameLevel(Omocode.of(0, new int[] { 2 })));
 	}
 
 	@Test
@@ -93,6 +104,28 @@ public class OmocodeTest {
 	public void testToOmocodeChar() {
 		assertEquals('M', Omocode.digitToOmocodeChar('1'));
 		assertEquals('M', Omocode.digitToOmocodeChar('M'));
+	}
+
+	@Test
+	public void testWithLevel() {
+		Omocode uut = Omocode.of(3, new int[] {1,2,3});
+
+		assertSame(uut, uut.withLevel(3));
+		assertEquals(2, uut.withLevel(2).getLevel());
+	}
+
+	@Test
+	public void testIsOmocodeChar() {
+		assertFalse(Omocode.isOmocodeChar('1'));
+		assertFalse(Omocode.isOmocodeChar('A'));
+		assertTrue(Omocode.isOmocodeChar('M'));
+	}
+
+	@Test
+	public void testUnsupported() {
+		Omocode uut = Omocode.unsupported();
+		assertEquals(0, uut.getMaxLevel());
+		assertEquals(0, uut.getLevel());
 	}
 
 }

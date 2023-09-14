@@ -65,7 +65,10 @@ public class CodiceFiscaleTest {
 		assertTrue(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(0).isEqual(CODICE_FISCALE, false));
 		assertTrue(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(3).isEqual(CODICE_FISCALE_2, false));
 		assertFalse(CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(3).isEqual(CODICE_FISCALE, false));
-	}
+
+		assertThrows(IllegalArgumentException.class, () -> CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(-5));
+		assertThrows(IllegalArgumentException.class, () -> CodiceFiscale.of(CODICE_FISCALE_1).toOmocodeLevel(200));
+}
 
 	@Test
 	public void testOfString() {
@@ -113,6 +116,7 @@ public class CodiceFiscaleTest {
 	@Test
 	public void testValidate() {
 		assertThrows(IllegalArgumentException.class, () -> CodiceFiscale.validate("RSSMRA75C21H501X"));
+		assertThrows(IllegalArgumentException.class, () -> CodiceFiscale.validate("RSSMRAXXC21H501X"));
 	}
 
 	@Test
