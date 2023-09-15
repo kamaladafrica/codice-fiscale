@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.kamaladafrica.codicefiscale.City;
+import it.kamaladafrica.codicefiscale.city.impl.csv.ItaliaCsvSupplier;
 
 public class ItaliaCsvSupplierTest {
 

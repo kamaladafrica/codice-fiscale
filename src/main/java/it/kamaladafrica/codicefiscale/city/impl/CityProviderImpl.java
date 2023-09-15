@@ -11,13 +11,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
 import it.kamaladafrica.codicefiscale.city.algo.JaroWinklerAlgoritm;
 import it.kamaladafrica.codicefiscale.city.algo.ScoreAlgoritm;
+import it.kamaladafrica.codicefiscale.city.impl.csv.EsteriCsvSupplier;
+import it.kamaladafrica.codicefiscale.city.impl.csv.ItaliaCsvSupplier;
 import it.kamaladafrica.codicefiscale.utils.Pair;
 
 public final class CityProviderImpl implements CityProvider {
@@ -58,9 +59,7 @@ public final class CityProviderImpl implements CityProvider {
 	@Override
 	public List<City> findAll() {
 		return Collections.unmodifiableList(
-				cityByName.values().stream()
-				.sorted(Comparator.comparing(City::getName))
-				.collect(Collectors.toList()));
+				cityByName.values().stream().sorted(Comparator.comparing(City::getName)).collect(Collectors.toList()));
 	}
 
 	@Override
@@ -73,10 +72,8 @@ public final class CityProviderImpl implements CityProvider {
 			if (minimumMatchScore != EXACT_MATCH_SCORE && result == null) {
 				result = cityByName.entrySet().stream()
 						.map(e -> Pair.of(e.getValue(), scoreAlgoritm.apply(term, e.getKey())))
-						.filter(e -> e.getValue() >= minimumMatchScore)
-						.max(Comparator.comparing(Entry::getValue))
-						.map(Entry::getKey)
-						.orElse(null);
+						.filter(e -> e.getValue() >= minimumMatchScore).max(Comparator.comparing(Entry::getValue))
+						.map(Entry::getKey).orElse(null);
 			}
 		}
 
@@ -121,11 +118,11 @@ public final class CityProviderImpl implements CityProvider {
 	}
 
 	private static Supplier<Set<City>> defaultSupplier() {
-		return () -> Stream
-				.of(ItaliaCsvSupplier.of(CityProviderImpl.class.getResource(ITALIA_RESOURCE_PATH)).get(),
-						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)).get(),
-						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_CESSATI_RESOURCE_PATH)).get())
-				.flatMap(identity()).collect(Collectors.toSet());
+		return () -> CompositeCityStreamSupplier
+				.of(ItaliaCsvSupplier.of(CityProviderImpl.class.getResource(ITALIA_RESOURCE_PATH)),
+						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_RESOURCE_PATH)),
+						EsteriCsvSupplier.of(CityProviderImpl.class.getResource(ESTERI_CESSATI_RESOURCE_PATH)))
+				.get().collect(Collectors.toSet());
 	}
 
 }
