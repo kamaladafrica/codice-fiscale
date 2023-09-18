@@ -130,7 +130,7 @@ public class SimpleCsvParser {
 	 *
 	 * @param separator               the delimiter to use for separating entries
 	 * @param quotechar               the character to use for quoted elements
-	 * @param escapeCSVException      the character to use for escaping a separator
+	 * @param escape                  the character to use for escaping a separator
 	 *                                or quote
 	 * @param strictQuotes            if true, characters outside the quotes are
 	 *                                ignored
@@ -154,6 +154,7 @@ public class SimpleCsvParser {
 	 *                                ignored
 	 * @param ignoreLeadingWhiteSpace if true, white space in front of a quote in a
 	 *                                field is ignored
+	 * @param ignoreQuotations        if true quotations are ignored                          
 	 */
 	public SimpleCsvParser(char separator, char quotechar, char escape, boolean strictQuotes,
 			boolean ignoreLeadingWhiteSpace, boolean ignoreQuotations) {
@@ -191,9 +192,8 @@ public class SimpleCsvParser {
 	 * Parses an incoming String and returns an array of elements.
 	 *
 	 * @param nextLine the string to parse
-	 * @param multi    multiline
 	 * @return the comma-tokenized list of elements, or null if nextLine is null
-	 * @throws CSVException if bad things happen during the read
+	 * @throws CsvException if bad things happen during the read
 	 */
 	public String[] parseLine(String nextLine) throws CsvException {
 
@@ -327,7 +327,7 @@ public class SimpleCsvParser {
 	}
 
 	/**
-	 * precondition: sb.length() > 0
+	 * precondition: sb.length() &gt; 0
 	 *
 	 * @param sb A sequence of characters to examine
 	 * @return true if every character in the sequence is whitespace
