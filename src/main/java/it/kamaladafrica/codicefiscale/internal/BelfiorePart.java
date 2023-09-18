@@ -1,14 +1,11 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.matchesPattern;
-
-import org.apache.commons.lang3.Validate;
-
-import com.google.common.primitives.ImmutableIntArray;
+import java.util.Objects;
 
 import it.kamaladafrica.codicefiscale.City;
 import it.kamaladafrica.codicefiscale.city.CityByBelfiore;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
+import it.kamaladafrica.codicefiscale.utils.Validate;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +35,11 @@ public final class BelfiorePart extends AbstractPart {
 
 	public static BelfiorePart from(String value, CityByBelfiore provider) {
 		Validate.notEmpty(value);
-		Validate.notNull(provider);
-		matchesPattern(value, VALIDATION_PATTERN);
+		Objects.requireNonNull(provider);
+		Validate.matchesPattern(value, VALIDATION_PATTERN);
 		Omocode omocodeLevel = Omocode.of(value, OMOCODE_INDEXES);
 		City input = toInput(omocodeLevel.normalize(value), provider);
-		Validate.notNull(input, "belfiore not found");
+		Objects.requireNonNull(input, "belfiore not found");
 		return new BelfiorePart(input, omocodeLevel);
 	}
 
@@ -53,7 +50,7 @@ public final class BelfiorePart extends AbstractPart {
 	@Override
 	protected String computeValue() {
 		String value = city.getBelfiore();
-		matchesPattern(value, VALIDATION_PATTERN);
+		Validate.matchesPattern(value, VALIDATION_PATTERN);
 		return value;
 	}
 
@@ -72,7 +69,7 @@ public final class BelfiorePart extends AbstractPart {
 
 	@Override
 	protected void validateValue(String value) {
-		matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
+		Validate.matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
 	}
 
 }

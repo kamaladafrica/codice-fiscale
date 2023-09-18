@@ -1,6 +1,6 @@
 package it.kamaladafrica.codicefiscale.city.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,9 +9,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.kamaladafrica.codicefiscale.City;
+import it.kamaladafrica.codicefiscale.city.impl.csv.EsteriCsvSupplier;
 
 public class EsteriCsvSupplierTest {
-	
+
 	private static final String ENCODING_ERROR_MARKER = "\uFFFD";
 
 	@Test

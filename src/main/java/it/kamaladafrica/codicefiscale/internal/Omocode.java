@@ -1,11 +1,6 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
-
-import com.google.common.collect.Lists;
-import com.google.common.primitives.ImmutableIntArray;
-import com.google.common.primitives.Ints;
-
+import it.kamaladafrica.codicefiscale.utils.Validate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Value;
@@ -24,7 +19,7 @@ public class Omocode {
 	ImmutableIntArray omocodeIndices;
 
 	private Omocode(int level, int mask, ImmutableIntArray omocodeIndices) {
-		inclusiveBetween(0, mask, level, "invalid omocode level: 0 <= %s <= %s", level, mask);
+		Validate.inclusiveBetween(0, mask, level, "invalid omocode level: 0 <= %s <= %s", level, mask);
 		this.level = level;
 		this.mask = mask;
 		this.omocodeIndices = omocodeIndices;
@@ -85,7 +80,7 @@ public class Omocode {
 
 	public static Omocode of(int level, int[] omocodeIndices) {
 		int mask = ~(~0 << omocodeIndices.length); // 2^omocodeIndices.length - 1
-		ImmutableIntArray indices = ImmutableIntArray.copyOf(Lists.reverse(Ints.asList(omocodeIndices)));
+		ImmutableIntArray indices = ImmutableIntArray.wrap(omocodeIndices).reverse();
 		return new Omocode(level, mask, indices);
 	}
 

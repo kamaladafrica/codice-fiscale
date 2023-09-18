@@ -1,13 +1,9 @@
 package it.kamaladafrica.codicefiscale.internal;
 
-import static org.apache.commons.lang3.Validate.matchesPattern;
-
 import java.time.LocalDate;
+import java.util.Objects;
 
-import org.apache.commons.lang3.Validate;
-
-import com.google.common.primitives.ImmutableIntArray;
-
+import it.kamaladafrica.codicefiscale.utils.Validate;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -40,14 +36,14 @@ public final class DatePart extends AbstractPart {
 
 	public static DatePart from(String value) {
 		Validate.notEmpty(value);
-		matchesPattern(value, VALIDATION_PATTERN);
+		Validate.matchesPattern(value, VALIDATION_PATTERN);
 		final Omocode omocodeLevel = Omocode.of(value, OMOCODE_INDEXES);
 		DatePartInput input = toInput(omocodeLevel.normalize(value));
 		return new DatePart(input.getDate(), input.isFemale(), omocodeLevel);
 	}
 
 	public static DatePart of(LocalDate date, boolean isFemale) {
-		Validate.notNull(date);
+		Objects.requireNonNull(date);
 		return new DatePart(date, isFemale, Omocode.of(OMOCODE_INDEXES));
 	}
 
@@ -62,7 +58,7 @@ public final class DatePart extends AbstractPart {
 		}
 
 		String value = String.format(DATE_PART_FORMAT, year, MONTHS_CHARS.charAt(month), day);
-		matchesPattern(value, VALIDATION_PATTERN);
+		Validate.matchesPattern(value, VALIDATION_PATTERN);
 		return value;
 	}
 
@@ -95,7 +91,7 @@ public final class DatePart extends AbstractPart {
 
 	@Override
 	protected void validateValue(String value) {
-		matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
+		Validate.matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
 	}
 
 	@Value

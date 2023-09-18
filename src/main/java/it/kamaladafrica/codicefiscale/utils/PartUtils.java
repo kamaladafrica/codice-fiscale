@@ -1,9 +1,6 @@
 package it.kamaladafrica.codicefiscale.utils;
 
-import static org.apache.commons.lang3.StringUtils.defaultString;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
+import java.util.Objects;
 
 import it.kamaladafrica.codicefiscale.CodiceFiscale;
 import lombok.experimental.UtilityClass;
@@ -40,17 +37,17 @@ public class PartUtils {
 
 	public static String normalizeString(String s) {
 		return RegexUtils.extract(RegexUtils.CF_ALLOWED_CHARS,
-				StringUtils.replaceEach(defaultString(s).toUpperCase(CodiceFiscale.LOCALE),DIACRITICS, DIACRITICS_TRANSLITERATION));
+				StringUtils.replaceEach(StringUtils.defaultString(s).toUpperCase(CodiceFiscale.LOCALE),DIACRITICS, DIACRITICS_TRANSLITERATION));
 
 	}
 
 	public static String extractConsonants(String s) {
-		Validate.notNull(s);
+		Objects.requireNonNull(s);
 		return RegexUtils.extract(RegexUtils.CONSONANT_PATTERN, s);
 	}
 
 	public static String extractVowels(String s) {
-		Validate.notNull(s);
+		Objects.requireNonNull(s);
 		return RegexUtils.extract(RegexUtils.VOWEL_PATTERN, s);
 	}
 

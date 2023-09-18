@@ -1,13 +1,8 @@
 package it.kamaladafrica.codicefiscale;
 
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
-import static org.apache.commons.lang3.Validate.matchesPattern;
-
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.Validate;
 
 import it.kamaladafrica.codicefiscale.city.CityByBelfiore;
 import it.kamaladafrica.codicefiscale.city.CityProvider;
@@ -96,8 +91,10 @@ public final class CodiceFiscale {
 
 	public CodiceFiscale toOmocodeLevel(int level) {
 		if ((level & OMOCODE_LEVEL_MASK) != 0) {
-			inclusiveBetween(0, OMOCODE_LEVEL_MASK, level, "invalid omocode level: 0 <= %s <= %s", level,
-					OMOCODE_LEVEL_MASK);
+			if (level < 0 || level > OMOCODE_LEVEL_MASK) {
+				throw new IllegalArgumentException(
+						String.format("invalid omocode level: 0 <= %s <= %s", level, OMOCODE_LEVEL_MASK));
+			}
 		}
 		DatePart datePart = getDate().toOmocodeLevel(level & OMOCODE_LEVEL_DATE_MASK);
 		BelfiorePart belfiorePart = getBelfiore().toOmocodeLevel(level & OMOCODE_LEVEL_BELFIORE_MASK);
@@ -158,13 +155,7 @@ public final class CodiceFiscale {
 		final int level = (date.getOmocodeLevel().getLevel() << OMOCODE_LEVEL_DATE_OFFSET)
 				| (belfiore.getOmocodeLevel().getLevel() << OMOCODE_LEVEL_BELFIORE_OFFSET);
 
-		final CodiceFiscale result = new CodiceFiscale(person, lastname, firstname, date, belfiore, level);
-
-		Validate.isTrue(Objects.equals(result.getValue(), value), "expected %s, but found %s", value,
-				result.getValue());
-
-		return result;
-
+		return new CodiceFiscale(person, lastname, firstname, date, belfiore, level);
 	}
 
 	public static boolean isCompatible(String code, Person person) {
@@ -181,11 +172,17 @@ public final class CodiceFiscale {
 	}
 
 	public static String validate(String value) {
-		matchesPattern(value, VALIDATION_PATTERN);
+		if (!value.matches(VALIDATION_PATTERN)) {
+			throw new IllegalArgumentException(
+					String.format("The string %s does not match the pattern %s", value, VALIDATION_PATTERN));
+		}
 		final ControlPart control = ControlPart.of(value.substring(LASTNAME_PART_INDEX, CONTROL_PART_INDEX));
 		final char currentControl = value.charAt(CONTROL_PART_INDEX);
-		Validate.isTrue(control.isEqual(currentControl), "invalid control char: expected %s, but found %s",
-				control.getValue(), currentControl);
+
+		if (!control.isEqual(currentControl)) {
+			throw new IllegalArgumentException(String.format("invalid control char: expected %s, but found %s",
+					control.getValue(), currentControl));
+		}
 		return value;
 	}
 

@@ -1,9 +1,10 @@
 package it.kamaladafrica.codicefiscale;
 
-import it.kamaladafrica.codicefiscale.city.CityProvider;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import it.kamaladafrica.codicefiscale.city.CityProvider;
 
 public class Issue30Test {
 

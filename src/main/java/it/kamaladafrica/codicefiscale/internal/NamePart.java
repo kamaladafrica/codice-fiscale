@@ -3,11 +3,9 @@ package it.kamaladafrica.codicefiscale.internal;
 import static it.kamaladafrica.codicefiscale.utils.PartUtils.extractConsonants;
 import static it.kamaladafrica.codicefiscale.utils.PartUtils.extractVowels;
 import static it.kamaladafrica.codicefiscale.utils.PartUtils.normalizeString;
-import static org.apache.commons.lang3.Validate.matchesPattern;
-
-import org.apache.commons.lang3.Validate;
 
 import it.kamaladafrica.codicefiscale.utils.PartUtils;
+import it.kamaladafrica.codicefiscale.utils.Validate;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,7 @@ public class NamePart extends AbstractPart {
 
 	public static NamePart from(String value) {
 		Validate.notEmpty(value);
-		matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
+		Validate.matchesPattern(value, VALIDATION_PATTERN, "invalid value: %s", value);
 		value = PartUtils.removePlaceholderIfPresent(value);
 		return of(value);
 	}
@@ -50,17 +48,15 @@ public class NamePart extends AbstractPart {
 		part.append(MISSING_LETTERS_PLACEHOLDER);
 		part.setLength(PART_LENGTH);
 
-		matchesPattern(part, VALIDATION_PATTERN, "unexpected result: %s", part);
+		Validate.matchesPattern(part, VALIDATION_PATTERN, "unexpected result: %s", part);
 
 		return part.toString();
 	}
 
 	private String nameConsonants(String name) {
 		String consonants = extractConsonants(name);
-		if(consonants.length() > PART_LENGTH){
-			consonants = new StringBuilder(consonants)
-					.deleteCharAt(INDEX_TO_REMOVE)
-					.toString();
+		if (consonants.length() > PART_LENGTH) {
+			consonants = new StringBuilder(consonants).deleteCharAt(INDEX_TO_REMOVE).toString();
 		}
 		return consonants;
 	}
@@ -72,7 +68,7 @@ public class NamePart extends AbstractPart {
 
 	@Override
 	protected void validateValue(String value) {
-		matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
+		Validate.matchesPattern(value, VALIDATION_PATTERN, "unexpected result: %s", value);
 	}
 
 }
