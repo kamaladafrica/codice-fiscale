@@ -1,9 +1,11 @@
 package it.kamaladafrica.codicefiscale.city.algo;
 
+import java.util.Objects;
+
 /**
  * A similarity algorithm that returns 1.0 only if left and right matches, 0.0
  * otherwise.
- * 
+ *
  * By default computation ignore the case,so "AAA" and "aaa" are equals
  */
 public class ExactMatchAlgoritm implements ScoreAlgoritm<Double> {
@@ -52,7 +54,7 @@ public class ExactMatchAlgoritm implements ScoreAlgoritm<Double> {
 	}
 
 	private static boolean areEquals(final CharSequence left, final CharSequence right, boolean ignoreCase) {
-		if (left == right) {
+		if (Objects.equals(left, right)) {
 			return true;
 		}
 

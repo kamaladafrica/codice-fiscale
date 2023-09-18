@@ -290,7 +290,7 @@ public class SimpleCsvParser {
 		if (sb != null) {
 			tokensOnThisLine.add(sb.toString());
 		}
-		return tokensOnThisLine.toArray(new String[tokensOnThisLine.size()]);
+		return tokensOnThisLine.toArray(new String[0]);
 
 	}
 
@@ -357,6 +357,7 @@ public class SimpleCsvParser {
 		return reader.lines().map(line -> parseLine(line)).onClose(() -> closeQuitely(reader));
 	}
 
+	@SuppressWarnings("PMD.EmptyCatchBlock")
 	private static void closeQuitely(Closeable closeable) {
 		if (closeable != null) {
 			try {

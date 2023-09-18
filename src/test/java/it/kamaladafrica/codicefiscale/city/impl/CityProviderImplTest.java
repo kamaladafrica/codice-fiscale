@@ -170,5 +170,5 @@ public class CityProviderImplTest {
 				CityProviderImpl.EXACT_MATCH_SCORE);
 		assertThrows(IllegalArgumentException.class, () -> provider.findByBelfiore("XXXX"));
 	}
-	
+
 }

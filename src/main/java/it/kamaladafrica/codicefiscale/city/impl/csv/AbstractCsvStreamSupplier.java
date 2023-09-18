@@ -1,17 +1,16 @@
 package it.kamaladafrica.codicefiscale.city.impl.csv;
 
-import static lombok.AccessLevel.PRIVATE;
-
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 
-@Getter(PRIVATE)
+@Getter(AccessLevel.PRIVATE)
 public abstract class AbstractCsvStreamSupplier<T> implements Supplier<Stream<T>> {
 
 	private final URL csvUrl;

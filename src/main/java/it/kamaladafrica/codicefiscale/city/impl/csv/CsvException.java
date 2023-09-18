@@ -5,6 +5,7 @@ public class CsvException extends RuntimeException {
 	private static final long serialVersionUID = -4707593681808158601L;
 
 	public CsvException() {
+		// call super
 	}
 
 	public CsvException(String message) {

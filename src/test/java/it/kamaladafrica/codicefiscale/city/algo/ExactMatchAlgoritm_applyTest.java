@@ -37,20 +37,20 @@ public class ExactMatchAlgoritm_applyTest {
 
 	@Parameters(name = "[{0}] apply(\"{1}\", \"{2}\")")
 	public static Iterable<Object[]> data() {
-		return Arrays.asList(new Object[][] { 
-			{ false, wrap(""), "", 1.0 }, 
-			{ true, wrap(""), "", 1.0 }, 
-			{ false, wrap("aaa"), "aaa", 1.0 }, 
-			{ false, wrap("aaa"), "AAA", 0.0 }, 
-			{ true, wrap("aaa"), "AAA", 1.0 }, 
-			{ true, wrap("aAa"), "AaA", 1.0 }, 
-			{ false, wrap("aaa"), "bbb", 0.0 }, 
-			{ true, wrap("AAA"), "BBB", 0.0 }, 
-			{ true, wrap("AAA"), "AAAA", 0.0 }, 
-			{ true, "AAA", "AAA", 1.0 }, 
-			{ true, new String("AAA"), new StringBuilder("AAA"), 1.0 }, 
-			{ false, new String("aaa"), new String("aaa"), 1.0 }, 
-			{ true, new String("aaa"), new String("AAA"), 1.0 }, 
+		return Arrays.asList(new Object[][] {
+			{ false, wrap(""), "", 1.0 },
+			{ true, wrap(""), "", 1.0 },
+			{ false, wrap("aaa"), "aaa", 1.0 },
+			{ false, wrap("aaa"), "AAA", 0.0 },
+			{ true, wrap("aaa"), "AAA", 1.0 },
+			{ true, wrap("aAa"), "AaA", 1.0 },
+			{ false, wrap("aaa"), "bbb", 0.0 },
+			{ true, wrap("AAA"), "BBB", 0.0 },
+			{ true, wrap("AAA"), "AAAA", 0.0 },
+			{ true, "AAA", "AAA", 1.0 },
+			{ true, new String("AAA"), new StringBuilder("AAA"), 1.0 },
+			{ false, new String("aaa"), new String("aaa"), 1.0 },
+			{ true, new String("aaa"), new String("AAA"), 1.0 },
 		});
 	}
 }

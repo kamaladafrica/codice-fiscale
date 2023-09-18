@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class JaroWinklerAlgoritm_applyTest {
 
-	JaroWinklerAlgoritm uut = new JaroWinklerAlgoritm();;
+	JaroWinklerAlgoritm uut = new JaroWinklerAlgoritm();
 
 	@Parameter(0)
 	public String left;

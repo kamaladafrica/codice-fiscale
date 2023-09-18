@@ -1,6 +1,6 @@
 package it.kamaladafrica.codicefiscale.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.junit.Test;
 
 public class RegexUtilsTest {
-	
+
 	private final String PATTERN = "[A-F1-5]";
 	private final String TEST = "ABC.defGH0123,45678";
 	private final String RESULT = "ABC12345";

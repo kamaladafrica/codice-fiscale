@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class JaroWinklerAlgoritmTest {
 
-	JaroWinklerAlgoritm uut = new JaroWinklerAlgoritm();;
+	JaroWinklerAlgoritm uut = new JaroWinklerAlgoritm();
 
 	@Test
 	public void testGetJaroWinklerSimilarity_NullNull() {

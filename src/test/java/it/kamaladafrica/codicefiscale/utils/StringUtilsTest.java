@@ -47,7 +47,7 @@ public class StringUtilsTest {
 		assertEquals("xbbzdd", StringUtils.replaceEach("aabbccdd", new String[] {"aa", "bb", "cc"}, new String[] {"x", null, "z"}));
 		assertEquals("xbbzdd", StringUtils.replaceEach("aabbccdd", new String[] {"aa", null, "cc"}, new String[] {"x", "y", "z"}));
 		assertEquals("axxaxxyydyyd", StringUtils.replaceEach("aabbaabbccddccdd", new String[] {"abb", "ccd"}, new String[] {"xx", "yy"}));
-		
+
 		assertThrows(IllegalArgumentException.class, () -> StringUtils.replaceEach("string", new String[] {"a"},  new String[] {"a", "b"}));
 	}
 

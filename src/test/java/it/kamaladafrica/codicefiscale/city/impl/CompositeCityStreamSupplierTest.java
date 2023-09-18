@@ -1,6 +1,7 @@
 package it.kamaladafrica.codicefiscale.city.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class CompositeCityStreamSupplierTest {
 			() -> Stream.of(
 					City.builder().name("GENOVA").prov("GE").belfiore("D").build(),
 					City.builder().name("LA SPEZIA").prov("SP").belfiore("E").build()));
-	
+
 	@Test
 	public void testGet() {
 		List<String> result = uut.get().map(City::getName).collect(Collectors.toList());

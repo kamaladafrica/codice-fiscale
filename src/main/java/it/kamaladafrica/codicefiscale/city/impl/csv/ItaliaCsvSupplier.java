@@ -23,6 +23,7 @@ public final class ItaliaCsvSupplier extends AbstractCsvStreamSupplier<City> imp
 		super(resource, SEPARATOR);
 	}
 
+	@Override
 	protected City mapper(String[] row) {
 		return City.builder()
 				.name(row[1].toUpperCase(CodiceFiscale.LOCALE))

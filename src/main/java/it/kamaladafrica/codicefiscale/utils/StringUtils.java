@@ -16,10 +16,12 @@ public class StringUtils {
 	}
 
 	public static String removeEnd(String s, String remove) {
-		if (s == null)
+		if (s == null) {
 			return null;
-		if (remove == null)
+		}
+		if (remove == null) {
 			return s;
+		}
 		if (s.endsWith(remove)) {
 			return s.substring(0, s.lastIndexOf(remove));
 		}
@@ -49,10 +51,7 @@ public class StringUtils {
 		if (cs1 == cs2) {
 			return true;
 		}
-		if (cs1 == null || cs2 == null) {
-			return false;
-		}
-		if (cs1.length() != cs2.length()) {
+		if (cs1 == null || cs2 == null || (cs1.length() != cs2.length())) {
 			return false;
 		}
 		if (cs1 instanceof String && cs2 instanceof String) {

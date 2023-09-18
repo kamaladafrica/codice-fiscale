@@ -23,6 +23,7 @@ public final class EsteriCsvSupplier extends AbstractCsvStreamSupplier<City> imp
 		super(resource, SEPARATOR);
 	}
 
+	@Override
 	protected City mapper(String[] row) {
 		return City.builder()
 				.name(row[6].toUpperCase(CodiceFiscale.LOCALE))
